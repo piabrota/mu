@@ -49,12 +49,12 @@ handover, `docs/` stays the source of truth.
 
 ## Portfolio
 
-[PIABROTA.md](../../PIABROTA.md) lists every public project. The factory below came with this repo,
-from Ouroboric. Our forks of `yggdrasil` and `asgard` mirror upstream, and they stay submodules here.
+The products are pirsig, alerts, ihero, gramatico, nix-os, dojo, rax and agents, each a submodule under
+[`products/`](../../products/). [PIABROTA.md](../../PIABROTA.md) lists every public repo.
 
-![piabrota portfolio: the founder approves direction in the Asgard realm of Yggdrasil, the agentic factory; the Asgard realm kickstarts a company such as photografy and Yggdrasil's other realms (web frontends and backend in v0; games, mobile, art and research later) build its product; a future product factory is illustrative](../img/piabrota-portfolio.png)
+![piabrota map: owners write the rules and approve direction in mu, the company chart, which pirsig manages; the products are gramatico and pirsig (think and write), alerts, rax, agents and nix-os (warn and host), ihero and dojo](../img/piabrota-map.png)
 
-**How to read this figure.** Top to bottom: the founder steers, Yggdrasil works, a company comes out. The company is an example. The source is [`piabrota-portfolio.json`](../archify/piabrota-portfolio.json).
+**How to read this figure.** Top to bottom, one lane per kind of work. A red border marks the people who steer. The source is [`piabrota-map.json`](../archify/piabrota-map.json).
 
 ## North-star measures
 

@@ -6,14 +6,14 @@ aliases: ["Yggdrasil's leaves stay upstream"]
 kind: permanent
 tags: ["decision"]
 created: 2026-11-01T07:14:51+00:00
-updated: 2026-11-01T07:14:51+00:00
+updated: 2026-11-01T08:10:31.266469+00:00
 ---
 
 # Yggdrasil's leaves stay upstream
 
-**Decided 2026-11-01.** The submodules point to our forks of yggdrasil and asgard; links to the leaves stay on ouroboric-dev.
+**Decided 2026-11-01.** Links to Yggdrasil's leaves stay on ouroboric-dev.
 
-**Why:** Only those two repos were forked, and they mirror upstream.
+**Why:** Only yggdrasil and asgard were forked, and they mirror upstream.
 
 **Outcome:** pending.
 
