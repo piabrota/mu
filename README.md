@@ -1,30 +1,33 @@
-<img alt="無, mu, no thing: the kanji brushed in twelve strokes, from pirsig" src="https://raw.githubusercontent.com/piabrota/pirsig/b7dd1da2ac886845b14bb90e5d8d34976cfc95cb/docs/drawings/pirsig.svg" width="200"/>
+<!-- markdownlint-disable MD033 -->
+<div align="center">
+
+<img alt="The piabrota logo, as piabrota.art shows it: an open green eye on red" src="docs/drawings/eye.svg" width="160"/>
+<img alt="む, mu, brushed in its three strokes, in pure Nix" src="docs/drawings/mu.svg" width="160"/>
 
 # mu
 
-無 · the piabrota umbrella · [dogma](DOGMA.md) · [repos](PIABROTA.md) · [decision models](docs/DECISION_MODELS.md) · [charter](docs/1-company/charter.md) · [licence](#licence)
+<sub>the piabrota company chart · <a href="DOGMA.md">dogma</a> · <a href="PIABROTA.md">repos</a> · <a href="docs/DECISION_MODELS.md">decision models</a> · <a href="docs/1-company/charter.md">charter</a> · <a href="#licence">licence</a></sub>
+
+</div>
 
 ## In one minute
 
-- **mu is the company umbrella of [piabrota](https://github.com/piabrota)**, an open software fabric
+- **mu is the company chart of [piabrota](https://github.com/piabrota)**, an open software fabric
   made in Rio de Janeiro. It holds the dogma, the charter, the standards, the journal and the tools
-  that every piabrota project inherits.
+  that every piabrota project inherits, and its eight products as submodules.
 - **[DOGMA.md](DOGMA.md) holds the ten invariants.** Agents fix every error a user or an owner reports,
   in short pull requests. Judgement is decision-oriented: evidence, a decision model, calibrated
   probabilities, rules that humans define, a verdict.
 - **[PIABROTA.md](PIABROTA.md) indexes every public repo of the org.**
 - **[pirsig](https://github.com/piabrota/pirsig) will manage this repo:** smart notes, PARA and a
   track record of high-level decisions. [`brain/`](brain/) is its fork state.
-- **mu began as a copy of Ouroboric's umbrella.** [NOTICE.md](NOTICE.md) keeps that credit.
+- **mu began as a copy of Ouroboric's company repo.** [NOTICE.md](NOTICE.md) keeps that credit.
 
 ## The map
 
-![piabrota map: the founder approves direction in the Asgard realm (readiness checklist, kickstart graph later); Yggdrasil, the agentic factory, contains Odin, Jormungandr, Gleipnir, Havamal, Voluspa (the graph library, which gives Odin its graphs), the realms (Midgard and Helheim in v0, Jotunheim and Muspelheim later), the Asgard realm, and Ginnungagap (later), which creates realms, all honouring the Gungnir contract, with Ratatoskr, Norns, Mimir and Bragi later; the Asgard realm kickstarts and the other realms build companies and products, whose lessons and benchmarks feed back into piabrota](docs/img/piabrota-map.png)
+![piabrota map: owners write the rules and approve direction in mu, the company chart, which pirsig manages; the products are gramatico and pirsig (think and write), alerts, rax, agents and nix-os (warn and host), ihero and dojo](docs/img/piabrota-map.png)
 
-**How to read this figure.** Top to bottom, one lane per role. An arrow says what flows, and a red border marks a person or what the factory makes. The source is [`piabrota-map.json`](docs/archify/piabrota-map.json).
-
-The factory's names come from Norse myth, and they are Ouroboric's; the
-[naming and mythology record](docs/7-branding/story/naming-and-mythology.md) tells the story behind each one.
+**How to read this figure.** Top to bottom, one lane per kind of work. A red border marks the people who steer. The source is [`piabrota-map.json`](docs/archify/piabrota-map.json).
 
 ## Contents
 
@@ -35,9 +38,10 @@ The factory's names come from Norse myth, and they are Ouroboric's; the
 | [`5-research/`](docs/5-research/README.md) | company-level research |
 | [`6-journal/`](docs/6-journal/README.md) | the journey: challenges, solutions, results |
 | [`7-branding/`](docs/7-branding/README.md) | the piabrota identity and voice, and the naming record |
+| [`forks/`](forks/) | the forks this repo pins: archify, graphify |
 | [`brain/`](brain/) | pirsig's fork state: PARA, smart notes, the track record |
 
-The products are submodules under [`products/`](products/): clone with `--recurse-submodules`.
+The eight products are submodules under [`products/`](products/): clone with `--recurse-submodules`.
 
 ## Contributing
 

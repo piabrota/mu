@@ -1,9 +1,30 @@
-[submodule "products/yggdrasil"]
-	path = products/yggdrasil
-	url = https://github.com/piabrota/yggdrasil.git
-[submodule "products/asgard"]
-	path = products/asgard
-	url = https://github.com/piabrota/asgard.git
 [submodule "forks/archify"]
 	path = forks/archify
 	url = https://github.com/piabrota/archify.git
+[submodule "products/pirsig"]
+	path = products/pirsig
+	url = https://github.com/piabrota/pirsig.git
+[submodule "products/alerts"]
+	path = products/alerts
+	url = https://github.com/piabrota/alerts.git
+[submodule "products/ihero"]
+	path = products/ihero
+	url = https://github.com/piabrota/ihero.git
+[submodule "products/gramatico"]
+	path = products/gramatico
+	url = https://github.com/piabrota/gramatico.git
+[submodule "products/nix-os"]
+	path = products/nix-os
+	url = https://github.com/piabrota/nix-os.git
+[submodule "products/dojo"]
+	path = products/dojo
+	url = https://github.com/piabrota/dojo.git
+[submodule "products/rax"]
+	path = products/rax
+	url = https://github.com/piabrota/rax.git
+[submodule "products/agents"]
+	path = products/agents
+	url = https://github.com/piabrota/agents.git
+[submodule "forks/graphify"]
+	path = forks/graphify
+	url = https://github.com/piabrota/graphify.git
