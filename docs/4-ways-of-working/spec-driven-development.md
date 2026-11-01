@@ -2,12 +2,12 @@
 title: Spec-driven development
 status: accepted
 date: 2026-10-12
-related: [docs-standard.md, https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/design/2026-10-11-yggdrasil-v0-design.md]
+related: [docs-standard.md, https://github.com/piabrota/yggdrasil/blob/main/docs/1-product/design/2026-10-11-yggdrasil-v0-design.md]
 ---
 
 # Spec-driven development
 
-This document describes how work goes from an idea to merged, verified code, for **every Ouroboric
+This document describes how work goes from an idea to merged, verified code, for **every piabrota
 product and every product they build**. **Yggdrasil**, the agentic factory, runs every tier: its
 **Asgard** realm runs tier 0 (kickstart), and its other realms run tiers 1–3. The process doesn't depend on any tool: Spec Kit,
 OpenSpec, BMAD, Superpowers or native prompts are interchangeable ways to produce the artifacts it defines.
@@ -96,16 +96,14 @@ runs stay comparable.
 
 ## 4. Stages and approval points
 
-<!-- diagram: assets/diagrams/sdd-flow.mmd -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/diagrams/rendered/sdd-flow.dark.svg">
-  <img alt="Spec-driven development: charter and design doc need human approval; the spec is approved automatically unless it deviates; plan, build, merge gate, living spec and journal follow automatically" src="../assets/diagrams/rendered/sdd-flow.svg">
-</picture>
+![Spec-driven development: charter and design doc need human approval; the spec is approved automatically unless it deviates; plan, build, merge gate, living spec and journal follow automatically](../img/sdd-flow.png)
+
+**How to read this figure.** Top to bottom, left to right. A red border is a gate that stops the work. The source is [`sdd-flow.json`](../archify/sdd-flow.json).
 
 ```text
 (tier 0 once, company: intent ─► offer ─► charter ─► [charter] ─► name ─► brand ─► [brand] ─► basics, roadmap ─► readiness)
 intent ─► design doc ─► charter-conformance check ─► [design] ─► spec ─► conformance review ─► [spec] ─► plan + reuse review
-       ─► tasks + DoR check ─► [plan] ─► implement (TDD, fresh session per task)
+       ─► tasks + DoR check ─► [plan] ─► implement (fresh session per task)
        ─► check ladder + reviewers (typed findings) ─► [feature] ─► merge gate ─► [merge]
        ─► pointer move ─► [pointer | pointer-contract] ─► update living spec ─► journal
 ```
@@ -197,7 +195,7 @@ These controls prevent it:
 
 - **One fresh agent session per task.** Each session reads `AGENTS.md`, `progress.md`, its task and
   the routing summary.
-- **Test first:** the task's named test must fail on the parent commit, then pass.
+- **Tests are guardrails ([dogma 2](../../DOGMA.md)):** a task names a test only when it guards against a regression that happened; that test must fail on the parent commit, then pass.
 - **Check ladder** per realm, then three read-only reviewers in order: **spec compliance**, **code
   quality**, **simplicity**. Reviewers report typed findings with stable ids. A finding closes only with
   proof.
@@ -228,11 +226,11 @@ Rules for third-party strategies:
 Until Yggdrasil can build itself, humans and an interactive agent follow the same process by hand:
 
 1. Kickstart (tier 0) by brainstorming together. For Yggdrasil, this happened in the 2026-10-10/11
-   sessions and was recorded retroactively: the [charter](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/charter.md), the
-   [roadmap](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/roadmap.md) and the [naming story](../7-branding/story/naming-and-mythology.md).
+   sessions and was recorded retroactively: the [charter](https://github.com/piabrota/yggdrasil/blob/main/docs/1-product/charter.md), the
+   [roadmap](https://github.com/piabrota/yggdrasil/blob/main/docs/1-product/roadmap.md) and the [naming story](../7-branding/story/naming-and-mythology.md).
 2. Write milestone 1's design doc and its engineering spec as separate documents:
-   [v0 design doc](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/design/2026-10-11-yggdrasil-v0-design.md) and
-   [v0 spec](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/2-engineering/specs/2026-10-11-yggdrasil-v0-spec.md).
+   [v0 design doc](https://github.com/piabrota/yggdrasil/blob/main/docs/1-product/design/2026-10-11-yggdrasil-v0-design.md) and
+   [v0 spec](https://github.com/piabrota/yggdrasil/blob/main/docs/2-engineering/specs/2026-10-11-yggdrasil-v0-spec.md).
 3. Write the implementation plan and tasks into `docs/2-engineering/plans/`.
 4. Implement test-first, one task per session, with reviews and the same commit conventions.
 5. Record challenges in the journal.

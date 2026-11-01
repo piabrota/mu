@@ -40,7 +40,7 @@ schema_version = "1.4"
 artifacts = ["/app"]
 
 [task]
-name = "ouroboric-dev/smoke-notes"
+name = "piabrota/smoke-notes"
 version = "1.0.0"
 
 [metadata]

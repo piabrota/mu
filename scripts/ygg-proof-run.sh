@@ -19,7 +19,7 @@
 # Qwen reviewer at the default high stalled a whole session in the rehearsal; a claude-code agent ignores the
 # setting, and the line is written for every agent); the retrospective role claude-code:opus (--retro-agent and
 # --retro-model; the role that writes the run's retrospective); a run 1,500 turns, 12,000,000 tokens, $5; a day 2,000
-# turns, 24,000,000 tokens, $10; --wall 8h; DIR $HOME/ygg-it; FILE $HOME/.config/ouroboric/factory.env;
+# turns, 24,000,000 tokens, $10; --wall 8h; DIR $HOME/ygg-it; FILE $HOME/.config/piabrota/factory.env;
 # --tasks ../mimir; --suites $HOME/ygg-it/hidden-suites; --yggdrasil the umbrella beside this repo.
 # A local role (opencode:local/<name>, for the planner, the implementer, the reviewer or the retrospective) needs
 # --models FILE, the model list: the config then has `models: { file: FILE }`. FILE must exist; a relative path is made
@@ -110,7 +110,7 @@ decisions="" decisions_set=0
 planner=claude-code:sonnet implementer=claude-code:sonnet reviewer=opencode:openrouter/qwen/qwen3.8-27b
 reviewer_reasoning=medium retro_agent=claude-code retro_model=opus
 run_turns=1500 run_tokens=12000000 run_usd=5 day_turns=2000 day_tokens=24000000 day_usd=10
-dir="$HOME/ygg-it" envfile="$HOME/.config/ouroboric/factory.env" tasks="$HERE/../../mimir"
+dir="$HOME/ygg-it" envfile="$HOME/.config/piabrota/factory.env" tasks="$HERE/../../mimir"
 suites="$HOME/ygg-it/hidden-suites" ygg_dir="$HERE/../../yggdrasil"
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -375,7 +375,7 @@ if [ -z "$cont" ]; then
   project="$work/project"
   mkdir -p "$project"
   git -C "$project" init -q -b main
-  printf 'root: true\nowner: ouroboric-dev\nvisibility: private\n' >"$project/umbrella.yaml"
+  printf 'root: true\nowner: piabrota\nvisibility: private\n' >"$project/umbrella.yaml"
   git -C "$project" add umbrella.yaml
   git -C "$project" -c user.name=ygg -c user.email=ygg@example.invalid commit -q -m "the proof run project"
   example="$HERE/testdata/proof/factory.proof.example.yaml"

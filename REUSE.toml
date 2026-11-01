@@ -3,18 +3,18 @@ version = 1
 [[annotations]]
 path = ["**"]
 precedence = "closest"
-SPDX-FileCopyrightText = "2026 Bruno Guilhermo de Barros Valério"
+SPDX-FileCopyrightText = ["2026 Bruno Guilhermo de Barros Valério", "2026 piabrota contributors"]
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
 path = ["scripts/**"]
 precedence = "closest"
-SPDX-FileCopyrightText = "2026 Bruno Guilhermo de Barros Valério"
+SPDX-FileCopyrightText = ["2026 Bruno Guilhermo de Barros Valério", "2026 piabrota contributors"]
 SPDX-License-Identifier = "AGPL-3.0-only"
 
-# Logo files are trademarks, not documentation (see TRADEMARKS.md); their READMEs stay CC BY 4.0.
+# What piabrota wrote new is MPL-2.0, the org's licence.
 [[annotations]]
-path = ["docs/7-branding/identity/logo/*.svg", "docs/7-branding/identity/logo/*.png", "docs/7-branding/identity/logo/*.ico", "docs/7-branding/identity/logo/concepts/*.svg"]
+path = ["DOGMA.md", "PIABROTA.md", "pirsig.toml", "brain/**", "docs/DECISION_MODELS.md", "docs/archify/**", "docs/img/**", "docs/mockups/**", "scripts/figure.sh", "scripts/minijinja-lib.sh", "scripts/piabrota-index.sh", "scripts/piabrota/**", "scripts/templates/piabrota/**", "scripts/templates/rust-component/**"]
 precedence = "closest"
-SPDX-FileCopyrightText = "2026 Bruno Guilhermo de Barros Valério"
-SPDX-License-Identifier = "LicenseRef-Ouroboric-Trademark"
+SPDX-FileCopyrightText = "2026 piabrota contributors"
+SPDX-License-Identifier = "MPL-2.0"

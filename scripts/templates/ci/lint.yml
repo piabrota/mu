@@ -1,5 +1,5 @@
 # The base CI: the required check "lint". It runs the repo's pre-commit hooks on every file, then
-# gitleaks over the whole history. Written by ouroboric/scripts/add-ci.sh; change the hooks in
+# gitleaks over the whole history. Written by mu/scripts/add-ci.sh; change the hooks in
 # .pre-commit-config.yaml, not here.
 name: lint
 on:

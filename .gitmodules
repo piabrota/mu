@@ -1,6 +1,9 @@
 [submodule "products/yggdrasil"]
 	path = products/yggdrasil
-	url = https://github.com/ouroboric-dev/yggdrasil.git
+	url = https://github.com/piabrota/yggdrasil.git
 [submodule "products/asgard"]
 	path = products/asgard
-	url = https://github.com/ouroboric-dev/asgard.git
+	url = https://github.com/piabrota/asgard.git
+[submodule "forks/archify"]
+	path = forks/archify
+	url = https://github.com/piabrota/archify.git

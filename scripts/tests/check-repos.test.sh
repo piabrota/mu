@@ -15,10 +15,10 @@ LINT='{"type":"required_status_checks","parameters":{"strict_required_status_che
 BOTH='{"type":"required_status_checks","parameters":{"strict_required_status_checks_policy":true,"required_status_checks":[{"context":"test","integration_id":15368},{"context":"lint","integration_id":15368}]}}'
 # repo <name> <workflows: none|lint|ci|both> <rules json>
 repo() {
-  echo '[{"id":1,"name":"protect-main","enforcement":"active"}]' > "$T/GET/repos_ouroboric-dev_$1_rulesets.json"
-  echo "{\"rules\":[$3]}" > "$T/GET/repos_ouroboric-dev_$1_rulesets_1.json"
-  case "$2" in lint|both) echo '{"name":"lint.yml"}' > "$T/GET/repos_ouroboric-dev_$1_contents_.github_workflows_lint.yml.json" ;; esac
-  case "$2" in ci|both) echo '{"name":"ci.yml"}' > "$T/GET/repos_ouroboric-dev_$1_contents_.github_workflows_ci.yml.json" ;; esac
+  echo '[{"id":1,"name":"protect-main","enforcement":"active"}]' > "$T/GET/repos_piabrota_$1_rulesets.json"
+  echo "{\"rules\":[$3]}" > "$T/GET/repos_piabrota_$1_rulesets_1.json"
+  case "$2" in lint|both) echo '{"name":"lint.yml"}' > "$T/GET/repos_piabrota_$1_contents_.github_workflows_lint.yml.json" ;; esac
+  case "$2" in ci|both) echo '{"name":"ci.yml"}' > "$T/GET/repos_piabrota_$1_contents_.github_workflows_ci.yml.json" ;; esac
   return 0
 }
 result() { "$HERE/../check-repos.sh" --check ruleset "$1" | cut -d' ' -f1; }
@@ -42,7 +42,7 @@ settings_result() { # <repo> <hasIssuesEnabled> [autoMergeAllowed, default true]
 check "settings, factory repo with issues on: PASS" [ "$(settings_result yggdrasil true)" = PASS ]
 check "settings, factory repo with issues off: FAIL" [ "$(settings_result asgard false)" = FAIL ]
 check "settings, other repo with issues off: PASS" [ "$(settings_result gungnir false)" = PASS ]
-check "settings, other repo with issues on: FAIL" [ "$(settings_result ouroboric true)" = FAIL ]
+check "settings, other repo with issues on: FAIL" [ "$(settings_result mu true)" = FAIL ]
 check "settings, auto-merge off: FAIL" [ "$(settings_result gungnir false false)" = FAIL ]
 # shared: the realms carry one copy of each shared script, and helheim-go's is the source.
 # A fixture umbrella: <helheim-go docs.sh|-> <midgard-react docs.sh|-|nodir> [<helheim-go protected-common|->] [<midgard-react protected-common|->]
@@ -83,9 +83,9 @@ check "shared, helheim-go's source missing: FAIL for helheim-go" [ "$(shared "$r
 mkdir -p "$T/nohash" && printf '#!/bin/sh\nexit 1\n' > "$T/nohash/sha256sum" && chmod +x "$T/nohash/sha256sum"
 r="$(shared_root same same)"
 check "shared, sha256sum fails: FAIL naming the file" [ "$(PATH="$T/nohash:$PATH" shared "$r" midgard-react)" = "FAIL midgard-react shared: can't read $r/yggdrasil/helheim-go/$F" ]
-# agents: voluspa is a leaf, so it lives at <root>/yggdrasil/voluspa and must link the yggdrasil invariants.
+# agents: voluspa is a leaf, so it lives at <root>/yggdrasil/voluspa and must link the mu invariants.
 mkdir -p "$T/vroot/yggdrasil/voluspa"
-printf '# AGENTS.md: Voluspa\n\nInvariants: https://github.com/ouroboric-dev/yggdrasil/blob/main/AGENTS.md#invariants\n' > "$T/vroot/yggdrasil/voluspa/AGENTS.md"
+printf '# AGENTS.md: Voluspa\n\nInvariants: https://github.com/piabrota/mu/blob/main/AGENTS.md#invariants\n' > "$T/vroot/yggdrasil/voluspa/AGENTS.md"
 check "agents, voluspa is a leaf under yggdrasil: PASS" [ "$(CHECK_REPOS_ROOT="$T/vroot" "$HERE/../check-repos.sh" --check agents voluspa)" = "PASS voluspa agents" ]
 # services: the services' versions live in niflheim-local's pack; mimir's Dockerfile and helheim-go's template CI copy them.
 # A fixture root; each argument overrides a part: seaweed=<digest> pgci=<image> pgpkg=<package> shape=folded|inline|nopkg, and drop=<repo> leaves a clone out.
@@ -147,7 +147,7 @@ for m in niflheim-local helheim-go mimir; do
   check "services, no $m clone: FAIL naming the path" matches "$out" "*FAIL*$m*" && ! matches "$out" "*PASS*"
 done
 r="$(services_root)"
-check "services, once per call whatever repos are named" [ "$(services "$r" ouroboric yggdrasil gungnir | grep -c 'services')" = "$(services "$r" | grep -c 'services')" ]
+check "services, once per call whatever repos are named" [ "$(services "$r" mu yggdrasil gungnir | grep -c 'services')" = "$(services "$r" | grep -c 'services')" ]
 out="$(CHECK_REPOS_ROOT="$r" "$HERE/../check-repos.sh" --check agents gungnir 2>&1)"
 check "services, not in the default checks" [ "$(grep -c '^\(FAIL\|PASS\) niflheim-local services' <<<"$out")" = 0 ]
 check "services, the check never names the hidden suites" [ -z "$(grep -n 'hidden-suites\|huldra\|credentials\|factory.env' <(sed -n '/^check_services/,/^}/p' "$HERE/../check-repos.sh"))" ]
@@ -158,8 +158,8 @@ O="$T/oroot"
 clone() { mkdir -p "$O/$1/$(dirname "$2")"; printf '%s\n' "$3" > "$O/$1/$2"
   git -C "$O/$1" init -q 2>/dev/null; git -C "$O/$1" add -- "$2"; }
 operator() { CHECK_REPOS_ROOT="$O" "$HERE/../check-repos.sh" --check operator "$@"; }
-clone asgard README.md 'cd ~/zed/ouroboric/asgard'
-clone yggdrasil/odin main_test.go 'Owner: "ouroboric-dev"'
+clone asgard README.md 'cd ~/zed/mu/asgard'
+clone yggdrasil/odin main_test.go 'Owner: "piabrota"'
 out="$(CHECK_REPOS_OPERATOR=zed operator asgard odin)"
 check "operator, a file that names the operator: FAIL, with the file" grep -qx 'FAIL asgard operator: names the operator in README.md' <<<"$out"
 check "operator, a repo that names only the org: PASS" grep -qx 'PASS odin operator' <<<"$out"
@@ -181,9 +181,9 @@ check "operator, from the machine: a user account in orgs/local/" \
 check "operator, no names at all: FAIL, never a silent pass" \
   [ "$(CHECK_REPOS_OPERATOR=' ' operator odin | cut -d' ' -f1)" = FAIL ]
 # The past records keep their paths as written; any other file in the same folders is checked.
-clone yggdrasil docs/2-engineering/plans/2026-10-12-yggdrasil-v0/tasks.md 'cd /home/zed/ouroboric'
+clone yggdrasil docs/2-engineering/plans/2026-10-12-yggdrasil-v0/tasks.md 'cd /home/zed/mu'
 check "operator, a listed past record: PASS" [ "$(CHECK_REPOS_OPERATOR=zed operator yggdrasil)" = 'PASS yggdrasil operator' ]
-clone yggdrasil docs/2-engineering/plans/2026-11-01-next/tasks.md 'cd /home/zed/ouroboric'
+clone yggdrasil docs/2-engineering/plans/2026-11-01-next/tasks.md 'cd /home/zed/mu'
 check "operator, a new plan beside the records: FAIL" grep -q 'tasks.md' <<<"$(CHECK_REPOS_OPERATOR=zed operator yggdrasil)"
 check "operator, in the default checks" grep -q 'operator' <(sed -n 's/.*checks=(\(settings.*\))$/\1/p' "$HERE/../check-repos.sh")
 exit $fail

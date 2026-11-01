@@ -16,7 +16,7 @@ pc() { uvx -q --from 'pre-commit==4.6.2' pre-commit "$@"; }
 mk() {
   mkdir -p "$T/$1"
   git -C "$T/$1" init -q -b main
-  "$S" --org ouroboric-dev --ci "${2:-markdown,yaml}" "$T/$1"
+  "$S" --org piabrota --ci "${2:-markdown,yaml}" "$T/$1"
 }
 # lint <name>: stage everything and run the hooks. Output goes to $T/<name>.log; the exit code is returned.
 lint() {

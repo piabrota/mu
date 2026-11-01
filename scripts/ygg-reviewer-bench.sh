@@ -18,7 +18,7 @@
 # config, and no update, share or model fetch.
 # The OpenCode is the engine's: the version gleipnir pins (sandbox/images.go in --gleipnir DIR, default the
 # sibling checkout). Without --opencode BIN it is installed once with npm into
-# ${XDG_CACHE_HOME:-$HOME/.cache}/ouroboric/opencode/VERSION (linux x64 only; --dry-run installs nothing). The
+# ${XDG_CACHE_HOME:-$HOME/.cache}/piabrota/opencode/VERSION (linux x64 only; --dry-run installs nothing). The
 # bench runs BIN --version and refuses a version other than the pin, unless --any-opencode is given. The argv is
 # the engine's for a read-only session, run --format json -m openrouter/MODEL; --standalone, which OpenCode 2
 # and later have and 1.x lacks, is added only when the major version is 2 or more. The terminal output and
@@ -96,7 +96,7 @@ installed=1
 if [ -z "$bin" ]; then
   platform="$(echo "${YGG_REVIEWER_BENCH_UNAME:-$(uname -sm)}" | tr '[:upper:]' '[:lower:]')"
   [ "$platform" = "linux x86_64" ] || fail "the pinned OpenCode is installed for linux x64 only, not '$platform'; give a binary with --opencode"
-  prefix="${XDG_CACHE_HOME:-$HOME/.cache}/ouroboric/opencode/$pin"
+  prefix="${XDG_CACHE_HOME:-$HOME/.cache}/piabrota/opencode/$pin"
   bin="$prefix/node_modules/opencode-linux-x64/bin/opencode"
   if [ ! -x "$bin" ]; then
     installed=0

@@ -1,0 +1,3 @@
+# psg fork export writes brain/ and would undo any fix on the next export, so it is not hand-formatted.
+ignores:
+  - "brain/**"

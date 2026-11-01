@@ -2,11 +2,14 @@
 title: Naming and mythology
 status: draft
 date: 2026-10-11
-related: [../prompts/nano-banana-logo-prompts.md]
+related: [../../../NOTICE.md, ../../../TRADEMARKS.md]
 style: brand-story
 ---
 
 # Naming and mythology
+
+This record came from Ouroboric, and these names are Ouroboric's ([TRADEMARKS.md](../../../TRADEMARKS.md)).
+It explains the factory that piabrota forks. It does not describe piabrota's own brand.
 
 Status: agreed 2026-10-11 (loop renamed to Jormungandr; Vitruvius replaced by Gungnir; Odin added as engine); the realms agreed 2026-10-17. This is the story behind the names. Use it for branding and for every
 future naming decision, so new components fit the same world.
@@ -42,7 +45,7 @@ Around the middle world lies **Jormungandr**, the Midgard Serpent, biting its ow
 **loop**: build, check, fix, again, until the work holds or the limit is reached.
 
 The Greeks called that shape the **Ouroboros**. It is the emblem above the whole tree and the brand
-(`ouroboric-dev`): the factory that improves itself. The Ouroboros is a symbol, not a module.
+(`piabrota`): the factory that improves itself. The Ouroboros is a symbol, not a module.
 
 **Ratatoskr**, the squirrel, runs up and down the trunk carrying messages between the eagle at the
 crown and the serpent at the roots. It is **routing**: finding, one level at a time, where in the
@@ -100,13 +103,13 @@ Legacy and migration are kinds of work a realm may offer, not realms.
 Naming a realm is not a commitment to build it. The roadmap says which realms come when. Muspelheim's
 fit is the weakest of the nine. The flavor lists are examples: a flavor gets its name when its leaf is
 created. The record of the decision is Yggdrasil's change proposal
-[realm leaf naming](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/2-engineering/changes/2026-10-17-realm-leaf-naming/proposal.md).
+[realm leaf naming](https://github.com/piabrota/yggdrasil/blob/main/docs/2-engineering/changes/2026-10-17-realm-leaf-naming/proposal.md).
 
 **Decided 2026-10-18 (founder).** **Ginnungagap** is a realm outside the nine. Its domain is realms:
 it creates realm leaves through `ygg run`, holds the realm readiness checklist, and is the source of
 what every realm shares. Its leaf is `ginnungagap`. Graphs have descriptive names (`software`,
 `kickstart`), not myth names: myth names are for realms and components. The record is Yggdrasil's
-[Ginnungagap and Voluspa design doc](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/design/2026-10-18-ginnungagap-design.md).
+[Ginnungagap and Voluspa design doc](https://github.com/piabrota/yggdrasil/blob/main/docs/1-product/design/2026-10-18-ginnungagap-design.md).
 
 ## The adversaries
 
@@ -123,15 +126,13 @@ Naming the threats makes them easier to discuss in designs, docs and incident no
 The long-term picture: solid means v0, dashed means later, dotted means an optional name, and grey
 means illustrative.
 
-<!-- diagram: assets/diagrams/ouroboric-long-term-map.d2 -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../../assets/diagrams/rendered/ouroboric-long-term-map.dark.svg">
-  <img alt="Ouroboric long-term map: inside the company, the journal (sagas) feeds Bragi; Yggdrasil has its v0 core (Odin, Jormungandr, Gleipnir, Havamal, Gungnir, and Voluspa the graph library), the realms (Midgard and Helheim now; the Asgard kickstart realm, Ginnungagap the realm that creates realms, Jotunheim and Muspelheim later; Niflheim, Nidavellir, Alfheim and Vanaheim named, not committed), later modules (Ratatoskr, Norns, Mimir) and optional names (Heimdall, Bifrost); a future product factory is illustrative; Fenrir, the models and agents, is bound by Gleipnir; the adversaries are Loki, Nidhogg and Ragnarok" src="../../assets/diagrams/rendered/ouroboric-long-term-map.svg">
-</picture>
+![Long-term map: inside the company, the journal (sagas) feeds Bragi; Yggdrasil has its v0 core (Odin, Jormungandr, Gleipnir, Havamal, Gungnir, and Voluspa the graph library), the realms (Midgard and Helheim now; the Asgard kickstart realm, Ginnungagap the realm that creates realms, Jotunheim and Muspelheim later; Niflheim, Nidavellir, Alfheim and Vanaheim named, not committed), later modules (Ratatoskr, Norns, Mimir) and optional names (Heimdall, Bifrost); a future product factory is illustrative; Fenrir, the models and agents, is bound by Gleipnir; the adversaries are Loki, Nidhogg and Ragnarok](../../img/piabrota-long-term-map.png)
+
+**How to read this figure.** One lane per part of the factory; the last lane is not built yet. The source is [`piabrota-long-term-map.json`](../../archify/piabrota-long-term-map.json).
 
 | Name | Role | Status |
 | --- | --- | --- |
-| **Ouroboric** | the company: builds open, self-improving factories. The Ouroboros is its symbol | company |
+| **Ouroboric** | the company that made these names: builds open, self-improving factories. The Ouroboros is its symbol | company |
 | **Yggdrasil** (`ygg`) | the agentic factory, and its product umbrella repo. The CLI is `ygg` | v0 |
 | **Asgard** | Yggdrasil's kickstart realm (tier 0): charters, brands, legal basics, roadmaps and readiness for companies and products. A company factory until 2026-10-17 | designed; v0 after Yggdrasil v0 |
 | **Ginnungagap** | the realm that creates realms, outside the nine: the realm contract and readiness checklist, the pieces every realm shares, realm leaves made by `ygg run`. Until 2026-10-18 the name of Asgard's kickstart graph, now `kickstart` | designed; after Yggdrasil v0 |
@@ -139,7 +140,7 @@ means illustrative.
 | **Gungnir** | the component contract: Go interface types and schemas (ledger events, graph.yaml, pack.yaml) | v0 |
 | **Gleipnir** | harness layer: agent adapters, sandbox drivers, context assembly, policies, check runner | v0 |
 | **Jormungandr** | loop layer: build→check→fix semantics, attempts, backoff, budgets, feedback, escalation | v0 |
-| **Ouroboros** | the brand symbol and org (`ouroboric-dev`): self-improvement. Not a module | brand |
+| **Ouroboros** | the brand symbol and org (`piabrota`): self-improvement. Not a module | brand |
 | **realms** | the nine domains of Yggdrasil's work, each with its flavors as leaf repos (`<realm>-<flavor>`): the stack layer, implementer prompt, templates and checks of the loop Odin runs (the graph lives in Voluspa). See [the realms](#the-realms) | v0 (Midgard and Helheim: `midgard-react`, `helheim-go`) |
 | **Havamal** | the skill library: vendored and own skills, `skills.lock`, evals. Each skill is one of Odin's charms | v0 |
 | **Voluspa** | the graph library: one graph for all software (`software`), later Asgard's `kickstart`. Runs pin it like a realm | built and name-screened (2026-10-19); `voluspa`, graph `software` |
@@ -168,11 +169,11 @@ Names not yet used, kept for later:
 3. **ASCII only** in code, CLIs, packages and repos: `Mimir`, not `Mímir`; `Bifrost`, not `Bifröst`;
    `Jormungandr`, not `Jörmungandr`.
 4. **Check collisions before adopting a name.** "Yggdrasil" is a well-known Go mesh-network project
-   and "Ouroboros" is Cardano's consensus protocol. "Odin" is also a programming language. The `github.com/ouroboric-dev/...` import path
+   and "Ouroboros" is Cardano's consensus protocol. "Odin" is also a programming language. The `github.com/piabrota/...` import path
    avoids technical conflicts, but searches will be noisy. The checks run on 2026-10-12 are in
    [name checks](../../5-research/2026-10-12-name-checks.md): only "Ouroboric" is free almost
    everywhere, so product and module names appear under the Ouroboric umbrella.
-5. **The org is `ouroboric-dev`** (ouroboric.dev): the shared symbol of iteration, of factories
+5. **The org is `piabrota`** (ouroboric.dev): the shared symbol of iteration, of factories
    improving themselves.
 6. **A realm leaf is `<realm>-<flavor>`**, lowercase: one of the nine realms of
    [the realms](#the-realms), then the flavor (`midgard-react`). A realm with one way of working MAY

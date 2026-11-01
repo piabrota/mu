@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "The map: piabrota, its factory and what it makes",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "output": "piabrota-map.html"
+  },
+  "lanes": [
+    {
+      "id": "steer",
+      "label": "Humans steer"
+    },
+    {
+      "id": "core",
+      "label": "Yggdrasil, the agentic factory"
+    },
+    {
+      "id": "realms",
+      "label": "Realms"
+    },
+    {
+      "id": "out",
+      "label": "What it makes"
+    }
+  ],
+  "mainPath": [
+    "founder",
+    "asgard",
+    "odin",
+    "gleipnir"
+  ],
+  "nodes": [
+    {
+      "id": "founder",
+      "lane": "steer",
+      "col": 1,
+      "type": "external",
+      "label": "Founder",
+      "width": 220,
+      "sublabel": "approves direction"
+    },
+    {
+      "id": "jorm",
+      "lane": "core",
+      "col": 0,
+      "type": "backend",
+      "label": "Jormungandr",
+      "width": 220,
+      "sublabel": "build, check, fix loop"
+    },
+    {
+      "id": "odin",
+      "lane": "core",
+      "col": 1,
+      "type": "backend",
+      "label": "Odin",
+      "width": 220,
+      "sublabel": "orchestrator, ygg CLI"
+    },
+    {
+      "id": "gleipnir",
+      "lane": "core",
+      "col": 2,
+      "type": "backend",
+      "label": "Gleipnir",
+      "width": 220,
+      "sublabel": "harness: agents, sandbox"
+    },
+    {
+      "id": "voluspa",
+      "lane": "realms",
+      "col": 0,
+      "type": "database",
+      "label": "Voluspa",
+      "width": 220,
+      "sublabel": "graph library"
+    },
+    {
+      "id": "asgard",
+      "lane": "realms",
+      "col": 1,
+      "type": "frontend",
+      "label": "Asgard realm",
+      "width": 220,
+      "sublabel": "kickstart"
+    },
+    {
+      "id": "realms",
+      "lane": "realms",
+      "col": 2,
+      "type": "frontend",
+      "label": "Build realms",
+      "width": 220,
+      "sublabel": "Midgard, Helheim"
+    },
+    {
+      "id": "products",
+      "lane": "out",
+      "col": 1,
+      "type": "external",
+      "label": "Companies and products",
+      "width": 220,
+      "sublabel": "lessons feed back"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "founder",
+      "to": "asgard",
+      "label": "approves"
+    },
+    {
+      "id": "e2",
+      "from": "asgard",
+      "to": "odin",
+      "label": "recipe, later"
+    },
+    {
+      "id": "e3",
+      "from": "realms",
+      "to": "odin",
+      "label": "recipes"
+    },
+    {
+      "id": "e4",
+      "from": "voluspa",
+      "to": "odin",
+      "label": "graphs"
+    },
+    {
+      "id": "e5",
+      "from": "odin",
+      "to": "jorm"
+    },
+    {
+      "id": "e6",
+      "from": "odin",
+      "to": "gleipnir"
+    },
+    {
+      "id": "e7",
+      "from": "realms",
+      "to": "products",
+      "label": "builds and verifies"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 # and the suites folder that is never read.   scripts/tests/ygg-proof-run.test.sh
 # Each case uses a fake `ygg` (it records its arguments and answers doctor), a fake `devcontainer`, a tiny task, a
 # tiny suites folder and a fake credentials file: no engine, no model, no network. v0-T291: the fake ygg also
-# answers run, grade, metrics, report and status, and logs the credential names of its environment. The ouroboric
+# answers run, grade, metrics, report and status, and logs the credential names of its environment. The
 # review: it also answers approve, resume and metrics --compare (which reads both runs from the one project it gets).
 # shellcheck disable=SC2329,SC2016 # check calls has and hasnt by name; the $ in the patterns is literal
 set -uo pipefail
@@ -43,7 +43,7 @@ sha="$(sha256sum "$TK/tiny-task/instruction.md" | cut -d' ' -f1)"
 cat >"$TK/tiny-task/task.toml" <<EOF2
 schema_version = "1.4"
 [task]
-name = "ouroboric-dev/tiny-task"
+name = "piabrota/tiny-task"
 version = "1.0.0"
 [metadata]
 brief_sha256 = "$sha"
@@ -562,7 +562,7 @@ check "INT during the build: the output says the run was not started" has "not s
 check "INT during the build: the build is gone" bash -c '! kill -0 "$1" 2>/dev/null' _ "$bpid"
 kill -KILL "$spid" "$bpid" 2>/dev/null
 
-# --- the ouroboric review (C1): a terminal's Ctrl-C and hang-up reach the script's whole process group
+# --- the review (C1): a terminal's Ctrl-C and hang-up reach the script's whole process group
 # The script is started as a terminal starts it: in its own process group, with SIGINT and SIGHUP at their defaults.
 startg() { # ARGS...: the script in the background; spid is its pid and its process group
   python3 -I -c 'import os, signal, sys; os.setpgid(0, 0); signal.signal(signal.SIGINT, signal.SIG_DFL); signal.signal(signal.SIGHUP, signal.SIG_DFL); os.execv(sys.argv[1], sys.argv[1:])' "$SCRIPT" "${BASE[@]}" "$@" >"$T/out" 2>&1 &
@@ -653,7 +653,7 @@ for first in none INT TERM; do
   [ -z "$rpg" ] || kill -KILL -- "-$rpg" 2>/dev/null
 done
 
-# --- the ouroboric review (T2): the real wall clock ends the run and what it started
+# --- the review (T2): the real wall clock ends the run and what it started
 fresh; rm -f "$T/run.pid" "$T/child.pid"; sleep 1
 FAKE_SLEEP=20 FAKE_CHILD=1 timeout 60 "$SCRIPT" "${BASE[@]}" --name go --wall 2s >"$T/out" 2>&1; rc=$?
 rpid="$(cat "$T/run.pid" 2>/dev/null || echo 0)"; cpid="$(cat "$T/child.pid" 2>/dev/null || echo 0)"
@@ -662,7 +662,7 @@ check "--wall 2s: the fake run is gone" bash -c '[ "$1" != 0 ] && ! kill -0 "$1"
 check "--wall 2s: the child the run started is gone" bash -c '[ "$1" != 0 ] && ! kill -0 "$1" 2>/dev/null' _ "$cpid"
 kill -KILL "$rpid" "$cpid" 2>/dev/null
 
-# --- the ouroboric review (I2): after an abnormal end, ygg doctor stops what the run left
+# --- the review (I2): after an abnormal end, ygg doctor stops what the run left
 runit 137
 check "exit 137: the script exits 137" test "$rc" -eq 137
 check "exit 137: doctor runs after the run, before the evidence" test "$(calls)" = "doctor,run,doctor,metrics,report"
@@ -672,7 +672,7 @@ check "exit 137: the doctor's output is in report.txt" grep -q -F '## ygg doctor
 runit 0
 check "exit 0: no doctor after the run" test "$(calls)" = "doctor,run,metrics,report,record"
 
-# --- the ouroboric review (C2): a baseline is found in its own proof folder, or refused before anything starts
+# --- the review (C2): a baseline is found in its own proof folder, or refused before anything starts
 nothing_started() { [ "$rc" -eq 2 ] && [ ! -s "$T/ygg.calls" ] && [ -z "$(find "$D" -maxdepth 1 -name 'proof-go-*')" ]; }
 fresh; plant_base; run proof --name go --baseline 20200101-000000-ffffff
 check "a baseline no proof folder holds: exit 2, nothing started, no folder made" nothing_started
@@ -683,7 +683,7 @@ check "a baseline two proof folders hold: it says so" has "2 proof folders under
 fresh; plant_base; run proof --name go --dry-run --baseline "$OLD"
 check "the dry run names the baseline it found and its folder" bash -c 'grep -F "baseline run $2" "$1" | grep -q -F "proof-old-20200101-000000"' _ "$T/out" "$OLD"
 
-# --- the ouroboric review (I1): --continue continues a stopped or paused run inside the script
+# --- the review (I1): --continue continues a stopped or paused run inside the script
 CBASE=(--folder "$D" --env "$ENVF" --any-ygg)
 cont() { "$SCRIPT" "${CBASE[@]}" "$@"; }
 runc() { pathok; "$@" >"$T/out" 2>&1; rc=$?; } # a continuation makes no folder: no wait

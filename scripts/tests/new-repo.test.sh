@@ -9,7 +9,7 @@ fail=0
 check() { local d="$1"; shift; if "$@"; then echo "ok   $d"; else echo "FAIL $d"; fail=1; fi; }
 posts() { grep -c '"method": "POST"' "$T/log"; }
 TOKEN=ghp_FAKE_new_repo_token
-B="$T/git/ouroboric-dev"
+B="$T/git/piabrota"
 
 mkdir -p "$B"
 : > "$T/log"
@@ -34,13 +34,12 @@ FILES='.github/workflows/lint.yml
 .markdownlint.yaml
 .pre-commit-config.yaml
 LICENSE
-LICENSES/AGPL-3.0-only.txt
-LICENSES/CC-BY-4.0.txt
+LICENSES/MPL-2.0.txt
 README.md
 REUSE.toml'
-PRBOT='https://github.com/organizations/ouroboric-dev/settings/installations, ouroboric-pr-bot, Configure, Repository access.'
+PRBOT='https://github.com/organizations/piabrota/settings/installations, piabrota-pr-bot, Configure, Repository access.'
 
-GH_TOKEN=$TOKEN "$NEW" --org ouroboric-dev alpha "The alpha repo." beta "The beta repo." \
+GH_TOKEN=$TOKEN "$NEW" --org piabrota alpha "The alpha repo." beta "The beta repo." \
   <<<"typed input" > "$T/out" 2> "$T/err"; rc=$?
 check "two new repos: exit 0" [ "$rc" = 0 ]
 for r in alpha beta; do
@@ -59,30 +58,30 @@ check "it prints the progress lines and the pr-bot message for each public repo"
     alpha alpha alpha alpha "$PRBOT" beta beta beta beta "$PRBOT")" ]
 check "the token is never printed" bash -c "! grep -q '$TOKEN' '$T/out' '$T/err'"
 
-GH_TOKEN=$TOKEN "$NEW" --org ouroboric-dev --private gamma "The gamma repo." </dev/null > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$NEW" --org piabrota --private gamma "The gamma repo." </dev/null > "$T/out" 2> "$T/err"; rc=$?
 check "--private: exit 0" [ "$rc" = 0 ]
 check "--private creates a private repo" \
   [ "$(grep '"method": "POST"' "$T/log" | tail -1 | jq -r '.body|fromjson|.visibility')" = private ]
 check "--private: the 'Never add' message" grep -qx 'Never add gamma to the pr-bot: agents must not see this repo.' "$T/out"
 check "--private: setup runs after the commit" grep -qx 'gamma 1 0' "$T/setup.log"
 
-printf '{"org":"ouroboric-dev"}\n' > "$T/bad.json"
+printf '{"org":"piabrota"}\n' > "$T/bad.json"
 before="$(posts)"
-GH_TOKEN=$TOKEN "$NEW" --org ouroboric-dev delta "D." taken "Exists already." > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$NEW" --org piabrota delta "D." taken "Exists already." > "$T/out" 2> "$T/err"; rc=$?
 check "an existing repo: exit non-zero, nothing is created" bash -c "[ $rc != 0 ] && [ '$before' = $(posts) ]"
-GH_TOKEN=$TOKEN "$NEW" --org ouroboric-dev --ci reuse,nope delta "D." >> "$T/out" 2>> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$NEW" --org piabrota --ci reuse,nope delta "D." >> "$T/out" 2>> "$T/err"; rc=$?
 check "an unknown --ci piece: exit non-zero, nothing is created" bash -c "[ $rc != 0 ] && [ '$before' = $(posts) ]"
 GH_TOKEN=$TOKEN "$NEW" --config "$T/bad.json" delta "D." >> "$T/out" 2>> "$T/err"; rc=$?
 check "a bad config: exit non-zero, nothing is created" bash -c "[ $rc != 0 ] && [ '$before' = $(posts) ]"
-env -u GH_TOKEN "$NEW" --org ouroboric-dev delta "D." >> "$T/out" 2>> "$T/err"; rc=$?
+env -u GH_TOKEN "$NEW" --org piabrota delta "D." >> "$T/out" 2>> "$T/err"; rc=$?
 check "no GH_TOKEN: exit 2, nothing is created" bash -c "[ $rc = 2 ] && [ '$before' = $(posts) ]"
-GH_TOKEN=$TOKEN "$NEW" --org ouroboric-dev --cl reuse widget "A widget." >> "$T/out" 2> "$T/err1"; rc=$?
+GH_TOKEN=$TOKEN "$NEW" --org piabrota --cl reuse widget "A widget." >> "$T/out" 2> "$T/err1"; rc=$?
 check "an unknown option: exit 2, nothing is created" bash -c "[ $rc = 2 ] && [ '$before' = $(posts) ]"
 check "an unknown option is named" grep -q 'unknown option: --cl' "$T/err1"
 check "a refused run prints no progress" [ ! -s "$T/out" ]
 check "a refused run never prints the token" bash -c "! grep -q '$TOKEN' '$T/out' '$T/err'"
 
-GH_TOKEN=$TOKEN CREATE_REPO_GIT="file://$T/nowhere" "$NEW" --org ouroboric-dev epsilon "The epsilon repo." \
+GH_TOKEN=$TOKEN CREATE_REPO_GIT="file://$T/nowhere" "$NEW" --org piabrota epsilon "The epsilon repo." \
   </dev/null > "$T/out" 2> "$T/err"; rc=$?
 check "a failed push: exit non-zero" [ "$rc" != 0 ]
 check "a failed push: setup never runs" bash -c "! grep -q epsilon '$T/setup.log'"
@@ -91,7 +90,7 @@ check "a failed push: stderr names the repo and says it is not protected" grep -
 check "a failed push: only the create is reported" [ "$(cat "$T/out")" = 'new-repo: epsilon: created' ]
 check "a failed push never prints the token" bash -c "! grep -q '$TOKEN' '$T/out' '$T/err'"
 
-printf '{"org":"ouroboric-dev","licence":"Apache-2.0","copyright":"Acme"}\n' > "$T/nolic.json"
+printf '{"org":"piabrota","licence":"Apache-2.0","copyright":"Acme"}\n' > "$T/nolic.json"
 printf '#!/bin/sh\nexit 1\n' > "$T/reuse-fails"
 chmod +x "$T/reuse-fails"
 before="$(posts)"
@@ -105,7 +104,7 @@ check "a failed licence download: no progress" [ ! -s "$T/out" ]
 
 printf '#!/bin/sh\nexit 7\n' > "$T/setup-fails"
 chmod +x "$T/setup-fails"
-GH_TOKEN=$TOKEN NEW_REPO_SETUP="$T/setup-fails" "$NEW" --org ouroboric-dev zeta "The zeta repo." \
+GH_TOKEN=$TOKEN NEW_REPO_SETUP="$T/setup-fails" "$NEW" --org piabrota zeta "The zeta repo." \
   </dev/null > "$T/out" 2> "$T/err"; rc=$?
 check "a failed setup: exit with its code" [ "$rc" = 7 ]
 check "a failed setup: stderr says zeta is not protected" grep -qx \

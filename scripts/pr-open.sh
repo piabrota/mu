@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Open a pull request as ouroboric-pr-bot and arm GitHub auto-merge on it. The default way an agent
+# Open a pull request as piabrota-pr-bot and arm GitHub auto-merge on it. The default way an agent
 # opens a pull request. Everything runs through as-bot.sh, so the token lasts one hour and reaches
 # only the named repo.
 # Arming auto-merge is not merging: the PR still waits for a human's approval and the required checks,
@@ -14,7 +14,7 @@
 #   pr-open.sh gleipnir --base main --head my-branch --title "..." --body-file body.md
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ORG="ouroboric-dev"
+ORG="piabrota"
 die() { echo "pr-open: $*" >&2; exit 2; }
 
 [ $# -ge 1 ] || die "usage: pr-open.sh <repo> [gh pr create arguments...]"

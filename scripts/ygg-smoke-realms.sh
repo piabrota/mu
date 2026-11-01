@@ -18,12 +18,12 @@
 # realms, scripted agents, the real check ladder. --graph is the graph pack, a name or a folder (default: the
 # smoke-lead folder of odin/testdata/smoke-realms; a name needs a graphs section in factory.yaml), --brief the
 # brief the run is given, and --tag names the files of the run and its report in DIR (h13 by default).
-# Defaults: DIR=$HOME/ygg-it, FILE=$HOME/.config/ouroboric/factory.env. For tests and other machines: YGG_CMD
+# Defaults: DIR=$HOME/ygg-it, FILE=$HOME/.config/piabrota/factory.env. For tests and other machines: YGG_CMD
 # (how ygg runs), YGG_ODIN (the odin folder), YGG_BIND (the bind mount, default /mnt/wsl/ygg-bind) and
 # YGG_CLI_VERSION (default 0.89.0). The engine environment comes from ygg-engine.sh (YGG_ENGINE_CHECK=0 skips it).
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-dir="$HOME/ygg-it" envfile="$HOME/.config/ouroboric/factory.env" build=0 clip=() graph="" brief="" tag=h13
+dir="$HOME/ygg-it" envfile="$HOME/.config/piabrota/factory.env" build=0 clip=() graph="" brief="" tag=h13
 while [ $# -gt 0 ]; do
   case "$1" in
     --build) build=1; shift ;;
@@ -59,7 +59,7 @@ mountpoint -q "$bind" || { echo "smoke-realms: the bind mount $bind is a folder 
 project="$dir/smoke-realms-$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$project"
 git -C "$project" init -q -b main
-printf 'root: true\nowner: ouroboric-dev\nvisibility: private\n' > "$project/umbrella.yaml"
+printf 'root: true\nowner: piabrota\nvisibility: private\n' > "$project/umbrella.yaml"
 git -C "$project" add umbrella.yaml
 git -C "$project" -c user.name=ygg -c user.email=ygg@example.invalid commit -q -m "the realms smoke project"
 echo "smoke-realms: made $project"

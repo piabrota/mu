@@ -1,24 +1,21 @@
 ---
-title: Ouroboric roadmap
-status: accepted
-date: 2026-10-12
-related: [charter.md]
+title: piabrota roadmap
+status: draft
+date: 2026-11-01
+related: [charter.md, ../../DOGMA.md, ../DECISION_MODELS.md]
 style: direction
 ---
 
-# Ouroboric roadmap
+# piabrota roadmap
 
 This roadmap sets the order of work, not dates. Each product keeps its own detailed roadmap.
 
-0. **Kickstart (tier 0):** company charter, brand seed (the Norse story) and visual identity, shape
-   (this umbrella with Yggdrasil and Asgard), readiness assessment. Done retroactively on 2026-10-11;
-   the visual identity was finished on 2026-10-12.
-1. **Yggdrasil v0:** the agentic factory builds client gallery lite
-   ([Yggdrasil roadmap](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/roadmap.md)).
-2. **Asgard v0:** Yggdrasil's Asgard realm, used by hand: the kickstart journey, the company
-   template, the readiness checklist (in use since the Ouroboric kickstart) and its check script,
-   the kickstart skills and the scripts ([Yggdrasil roadmap](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/roadmap.md)).
-3. **Yggdrasil iteration 2 and self-hosting stage 1**, then Ginnungagap, the realm that creates realms.
-4. **Asgard automation:** the `kickstart` graph on Odin.
-5. **Later:** benchmark kit (Mimir), the games realm (Jotunheim), promotion (Bragi); new factories only
-   after these.
+0. **The conversion:** this repo takes the piabrota identity, the dogma and the repo index.
+1. **The GitHub setup:** create `piabrota-pr-bot`, add the `protect-main` ruleset to `mu`, and pass
+   `scripts/check-repos.sh`.
+2. **The handover to pirsig:** PARA, smart notes and the track record move from seed to daily use.
+3. **The decision pipeline:** try the tracked [decision models](../DECISION_MODELS.md), then write the
+   decision engine's first rules.
+4. **Routines:** agents fix reported errors, on local models, Claude and Kimi.
+5. **Later:** follow [Yggdrasil's roadmap](https://github.com/piabrota/yggdrasil/blob/main/docs/1-product/roadmap.md)
+   from our fork, which mirrors upstream.

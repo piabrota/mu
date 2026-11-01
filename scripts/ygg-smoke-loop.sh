@@ -12,12 +12,12 @@
 #   5. runs the realm and keeps its raw output in DIR/h11-run.txt (shown live as ygg prints it: do not paste
 #      that file, paste the report);
 #   6. prints the report of ygg-evidence.sh, with the credentials removed (also in DIR/h11-report.txt): paste it.
-# Defaults: DIR=$HOME/ygg-it, FILE=$HOME/.config/ouroboric/factory.env, graph=testdata/smoke-loop of the
+# Defaults: DIR=$HOME/ygg-it, FILE=$HOME/.config/piabrota/factory.env, graph=testdata/smoke-loop of the
 # odin folder. For tests and other machines: YGG_CMD (how ygg runs), YGG_ODIN (the odin folder),
 # YGG_BIND (the bind mount, default /mnt/wsl/ygg-bind) and YGG_CLI_VERSION (default 0.89.0).
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-dir="$HOME/ygg-it" envfile="$HOME/.config/ouroboric/factory.env" realm='' build=0 clip=()
+dir="$HOME/ygg-it" envfile="$HOME/.config/piabrota/factory.env" realm='' build=0 clip=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --build) build=1; shift ;;
@@ -43,7 +43,7 @@ project="$dir/smoke-loop"
 if [ ! -d "$project" ]; then
   mkdir -p "$project"
   git -C "$project" init -q -b main
-  printf 'root: true\nowner: ouroboric-dev\nvisibility: private\n' > "$project/umbrella.yaml"
+  printf 'root: true\nowner: piabrota\nvisibility: private\n' > "$project/umbrella.yaml"
   git -C "$project" add umbrella.yaml
   git -C "$project" -c user.name=ygg -c user.email=ygg@example.invalid commit -q -m "the smoke loop project"
   echo "smoke-loop: made $project"

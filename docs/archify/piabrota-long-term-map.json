@@ -1,0 +1,173 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "The long-term map of the factory",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "output": "piabrota-long-term-map.html"
+  },
+  "lanes": [
+    {
+      "id": "journal",
+      "label": "Journal and content"
+    },
+    {
+      "id": "core",
+      "label": "Core, v0"
+    },
+    {
+      "id": "realms",
+      "label": "Realms"
+    },
+    {
+      "id": "later",
+      "label": "Later"
+    }
+  ],
+  "mainPath": [
+    "midgard",
+    "odin",
+    "gleipnir"
+  ],
+  "nodes": [
+    {
+      "id": "sagas",
+      "lane": "journal",
+      "col": 1,
+      "type": "database",
+      "label": "Sagas",
+      "width": 220,
+      "sublabel": "the journal"
+    },
+    {
+      "id": "bragi",
+      "lane": "journal",
+      "col": 2,
+      "type": "external",
+      "label": "Bragi",
+      "width": 220,
+      "sublabel": "posts, later"
+    },
+    {
+      "id": "jorm",
+      "lane": "core",
+      "col": 0,
+      "type": "backend",
+      "label": "Jormungandr",
+      "width": 220,
+      "sublabel": "loop"
+    },
+    {
+      "id": "odin",
+      "lane": "core",
+      "col": 1,
+      "type": "backend",
+      "label": "Odin",
+      "width": 220,
+      "sublabel": "orchestrator"
+    },
+    {
+      "id": "gleipnir",
+      "lane": "core",
+      "col": 2,
+      "type": "backend",
+      "label": "Gleipnir",
+      "width": 220,
+      "sublabel": "harness"
+    },
+    {
+      "id": "voluspa",
+      "lane": "realms",
+      "col": 0,
+      "type": "database",
+      "label": "Voluspa",
+      "width": 220,
+      "sublabel": "graph library"
+    },
+    {
+      "id": "midgard",
+      "lane": "realms",
+      "col": 1,
+      "type": "frontend",
+      "label": "Midgard, Helheim",
+      "width": 220,
+      "sublabel": "web, backend"
+    },
+    {
+      "id": "asgard",
+      "lane": "realms",
+      "col": 2,
+      "type": "frontend",
+      "label": "Asgard, Ginnungagap",
+      "width": 220,
+      "sublabel": "kickstart, makes realms"
+    },
+    {
+      "id": "ratatoskr",
+      "lane": "later",
+      "col": 0,
+      "type": "external",
+      "label": "Ratatoskr",
+      "width": 220,
+      "sublabel": "routing"
+    },
+    {
+      "id": "norns",
+      "lane": "later",
+      "col": 1,
+      "type": "external",
+      "label": "Norns",
+      "width": 220,
+      "sublabel": "observability"
+    },
+    {
+      "id": "mimir",
+      "lane": "later",
+      "col": 2,
+      "type": "external",
+      "label": "Mimir",
+      "width": 220,
+      "sublabel": "benchmarks"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "sagas",
+      "to": "bragi",
+      "label": "feeds"
+    },
+    {
+      "id": "e2",
+      "from": "odin",
+      "to": "jorm"
+    },
+    {
+      "id": "e3",
+      "from": "odin",
+      "to": "gleipnir"
+    },
+    {
+      "id": "e4",
+      "from": "voluspa",
+      "to": "odin",
+      "label": "graphs"
+    },
+    {
+      "id": "e5",
+      "from": "midgard",
+      "to": "odin",
+      "label": "recipes"
+    },
+    {
+      "id": "e6",
+      "from": "asgard",
+      "to": "odin",
+      "label": "recipes"
+    }
+  ]
+}

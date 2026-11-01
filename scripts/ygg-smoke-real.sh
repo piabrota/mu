@@ -54,7 +54,7 @@
 # The credentials are loaded by `. FILE` in the subshell that runs ygg, as the other smoke scripts do, and nothing
 # in this script echoes, greps for a value, or copies them. The exit code is the run's (0 done, 1 a node failed,
 # 3 stopped, 4 paused, 5 done with tasks given up, 124 the wall clock ended it) or 2 for a refusal before it.
-# Defaults: DIR=$HOME/ygg-it, FILE=$HOME/.config/ouroboric/factory.env. For tests and other machines: YGG_CMD (how
+# Defaults: DIR=$HOME/ygg-it, FILE=$HOME/.config/piabrota/factory.env. For tests and other machines: YGG_CMD (how
 # ygg runs), YGG_ODIN (the odin folder), YGG_BIND (the bind mount, default /mnt/wsl/ygg-bind), YGG_CLI_VERSION
 # (default 0.89.0). The engine environment comes from ygg-engine.sh (YGG_ENGINE_CHECK=0 skips it).
 set -euo pipefail
@@ -62,7 +62,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source-path=SCRIPTDIR source=ygg-build-facts.sh
 . "$HERE/ygg-build-facts.sh"
 any_ygg=0
-dir="$HOME/ygg-it" envfile="$HOME/.config/ouroboric/factory.env" tasks="$HERE/../../mimir" wall=90m dry=0 build=0 clip=0
+dir="$HOME/ygg-it" envfile="$HOME/.config/piabrota/factory.env" tasks="$HERE/../../mimir" wall=90m dry=0 build=0 clip=0
 leaf="" implementer="" note="" models=""
 odin="${YGG_ODIN:-$HERE/../../yggdrasil/odin}"
 usage() { echo "usage: ygg-smoke-real.sh [--dry-run] [--build] [--folder DIR] [--env FILE] [--tasks DIR] [--odin DIR] [--wall TIME] [--clip] [--from-leaf LEAF] [--implementer AGENT:MODEL] [--models FILE] [--brief-note FILE] [--any-ygg]" >&2; exit 2; }
@@ -192,7 +192,7 @@ mkdir -p "$work/suites/$task/$suite" "$work/project"
 cp -r "$public/tests" "$work/suites/$task/$suite/tests"
 project="$work/project"
 git -C "$project" init -q -b main
-printf 'root: true\nowner: ouroboric-dev\nvisibility: private\n' >"$project/umbrella.yaml"
+printf 'root: true\nowner: piabrota\nvisibility: private\n' >"$project/umbrella.yaml"
 # The grader's /app is the project. The product is built in the leaf; this file starts it.
 # odin writes a leaf's first-commit files without the execute bit, so a run from a leaf runs its start.sh with sh
 # unless the implementer made it executable. sh is dash in the grader's image, so the shebang wins when it can.

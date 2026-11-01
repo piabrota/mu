@@ -1,0 +1,5 @@
+# Format, lint and test, as CI does
+check:
+    cargo fmt --check
+    cargo clippy --all-targets -- -D warnings
+    cargo test

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Check that ouroboric-dev repos have the required setup. See docs/4-ways-of-working/docs-standard.md.
+# Check that piabrota repos have the required setup. See docs/4-ways-of-working/docs-standard.md.
 #   check-repos.sh [--check settings|security|ruleset|reuse|agents|gitleaks|shared|bot|operator|services]... [repo...]
 # services is not a default check and runs once per call: it keeps the services' versions equal in niflheim-local's
 # pack, mimir's client-gallery-lite Dockerfile and helheim-go's template CI.
@@ -12,8 +12,8 @@
 # shellcheck disable=SC2015,SC2329  # `cond && ok || bad` reports only (ok and bad just print); checks run by name as check_$c
 set -uo pipefail
 ROOT="${CHECK_REPOS_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"   # holds the side-by-side clones
-ORG="ouroboric-dev"
-UMBRELLAS=" ouroboric yggdrasil asgard "
+ORG="piabrota"
+UMBRELLAS=" mu yggdrasil asgard "
 FACTORIES=" yggdrasil asgard "   # the only repos with issues on
 LEAVES=" gungnir odin gleipnir jormungandr midgard-react helheim-go havamal voluspa niflheim-local "
 LATER=" mimir "     # standard repos checked once they exist; side-by-side clones like the umbrellas
@@ -88,7 +88,7 @@ check_agents() {
     local n; n="$(wc -l < "$f")"
     [ "$n" -le 120 ] || { bad "$1" agents "$n lines (keep it near 100)"; return; }
     grep -q '^## Invariants' "$f" && { bad "$1" agents "a leaf must not define its own invariants"; return; }
-    grep -q 'ouroboric-dev/yggdrasil/blob/main/AGENTS.md#invariants' "$f" \
+    grep -q 'piabrota/mu/blob/main/AGENTS.md#invariants' "$f" \
       && ok "$1" agents || bad "$1" agents "does not link the yggdrasil invariants"
   else
     ok "$1" agents "present"
@@ -199,7 +199,7 @@ repo_checks=(); services=0   # services compares three repos, so it runs once, n
 for c in "${checks[@]}"; do if [ "$c" = services ]; then services=1; else repo_checks+=("$c"); fi; done
 if [ ${#repo_checks[@]} -gt 0 ]; then
   if [ ${#repos[@]} -eq 0 ]; then
-    repos=(.github ouroboric yggdrasil asgard ouroboric-packages)
+    repos=(.github mu yggdrasil asgard)
     for r in $LEAVES $LATER; do gh_api "repos/$ORG/$r" >/dev/null 2>&1 && repos+=("$r"); done
   fi
   for r in "${repos[@]}"; do for c in "${repo_checks[@]}"; do "check_$c" "$r"; done; done

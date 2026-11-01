@@ -9,7 +9,7 @@ trap 'rm -rf -- "$T"' EXIT
 fail=0
 check() { local d="$1"; shift; if "$@"; then echo "ok   $d"; else echo "FAIL $d"; fail=1; fi; }
 TOKEN=ghp_FAKE_rollout_token
-B="$T/git/ouroboric-dev"
+B="$T/git/piabrota"
 export GIT_AUTHOR_NAME=Founder GIT_AUTHOR_EMAIL=founder@example.invalid GIT_COMMITTER_NAME=Founder GIT_COMMITTER_EMAIL=founder@example.invalid
 export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 export ROLLOUT_ROOT="$T/root" ROLLOUT_GIT="file://$T/git"
@@ -37,7 +37,7 @@ jq -cn --arg stdin "\$(cat | wc -c)" '{args: \$ARGS.positional, stdin: \$stdin}'
 repo="\$1"
 case "\$3 \$4" in
   "pr list") cat "$T/prs/\$repo" 2>/dev/null; true ;;
-  "pr create") echo "https://github.com/ouroboric-dev/\$repo/pull/1" | tee "$T/prs/\$repo" ;;
+  "pr create") echo "https://github.com/piabrota/\$repo/pull/1" | tee "$T/prs/\$repo" ;;
   *) exit 9 ;;
 esac
 EOF
@@ -84,49 +84,49 @@ jqs() { jq -se "$@" >/dev/null; }
 # no_token: the token is in no output, and in no argument to git, the bot or the stubs.
 no_token() { ! grep -q "$TOKEN" "$T/out" "$T/err" "$T/git.log" "$T/bot.log" "$T/setup.log" "$T/check.log"; }
 ack() { git -C "$ROLLOUT_ROOT/$1" rev-parse -q --verify refs/rollout-ci/base-ci; }
-url() { echo "rollout-ci: $1: https://github.com/ouroboric-dev/$1/pull/1"; }
+url() { echo "rollout-ci: $1: https://github.com/piabrota/$1/pull/1"; }
 
 # push: two prepared repos
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push alpha beta <<<"typed input" > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push alpha beta <<<"typed input" > "$T/out" 2> "$T/err"; rc=$?
 check "push two prepared repos: exit 0" [ "$rc" = 0 ]
 check "push two prepared repos: both base-ci branches are on the remotes" \
   bash -c "[ '$(remote_sha alpha)' = '$(local_sha alpha)' ] && [ '$(remote_sha beta)' = '$(local_sha beta)' ]"
 check "push two prepared repos: two PRs are opened through the bot" [ "$(creates)" = 2 ]
 check "push two prepared repos: each PR is base main, head base-ci, titled 'Base CI: lint required'" \
-  jqs 'map(select(.args[2:4]==["pr","create"])) | length == 2 and all(.args[4:12] == ["--repo","ouroboric-dev/"+.args[0],"--base","main","--head","base-ci","--title","Base CI: lint required"])' "$T/bot.log"
+  jqs 'map(select(.args[2:4]==["pr","create"])) | length == 2 and all(.args[4:12] == ["--repo","piabrota/"+.args[0],"--base","main","--head","base-ci","--title","Base CI: lint required"])' "$T/bot.log"
 check "push two prepared repos: the PR body names the proposal and the protect step" \
   jqs 'map(select(.args[2:4]==["pr","create"])) | length == 2 and all(.args[12] == "--body" and (.args[13] | test("base-ci-rollout/proposal.md") and test("rollout-ci.sh protect")))' "$T/bot.log"
 check "push two prepared repos: the bot looks for an open PR on base-ci first" \
-  jqs 'map(select(.args[2:4]==["pr","list"])) | length == 2 and all(.args[4:] == ["--repo","ouroboric-dev/"+.args[0],"--head","base-ci","--state","open","--json","url","-q",".[0].url"])' "$T/bot.log"
+  jqs 'map(select(.args[2:4]==["pr","list"])) | length == 2 and all(.args[4:] == ["--repo","piabrota/"+.args[0],"--head","base-ci","--state","open","--json","url","-q",".[0].url"])' "$T/bot.log"
 check "push two prepared repos: both URLs are printed" [ "$(cat "$T/out")" = "$(url alpha; url beta)" ]
 check "push: stdin never reaches the bot" jqs 'all(.stdin == "0")' "$T/bot.log"
 check "push: the token never appears in any output or argument" no_token
 
 # push again: nothing changed
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push alpha beta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push alpha beta > "$T/out" 2> "$T/err"; rc=$?
 check "push again with nothing changed: exit 0" [ "$rc" = 0 ]
 check "push again with nothing changed: it prints up to date and the open PR's URL" \
   [ "$(cat "$T/out")" = "$(printf 'rollout-ci: alpha: up to date\n%s\nrollout-ci: beta: up to date\n%s' "$(url alpha)" "$(url beta)")" ]
 check "push again with nothing changed: no second PR" [ "$(creates)" = 2 ]
 
 # push .github: a repo name may start with a dot
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push .github > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push .github > "$T/out" 2> "$T/err"; rc=$?
 check "push .github: exit 0, base-ci is on the remote, and its PR URL is printed" \
   bash -c "[ $rc = 0 ] && [ '$(remote_sha .github)' = '$(local_sha .github)' ] && [ '$(cat "$T/out")' = '$(url .github)' ]"
 
 # push with a global insteadOf that sends the org's URLs elsewhere (the founder's https-to-SSH rule):
 # rollout-ci.sh's own rule is longer, so it wins, and the push still goes to $T/git with the token.
-git init -q --bare -b main "$T/wrong/ouroboric-dev/theta.git"
+git init -q --bare -b main "$T/wrong/piabrota/theta.git"
 printf '[url "file://%s/wrong/"]\n\tinsteadOf = file://%s/git/\n' "$T" "$T" > "$T/insteadof.gitconfig"
-GIT_CONFIG_GLOBAL="$T/insteadof.gitconfig" GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push theta > "$T/out" 2> "$T/err"; rc=$?
+GIT_CONFIG_GLOBAL="$T/insteadof.gitconfig" GH_TOKEN=$TOKEN "$RC" --org piabrota push theta > "$T/out" 2> "$T/err"; rc=$?
 check "push with a global insteadOf for the org's URLs: exit 0, base-ci lands on the real remote" \
   bash -c "[ $rc = 0 ] && [ '$(remote_sha theta)' = '$(local_sha theta)' ]"
 check "push with a global insteadOf for the org's URLs: nothing reaches the rewritten remote" \
-  bash -c "! git -C '$T/wrong/ouroboric-dev/theta.git' rev-parse -q --verify refs/heads/base-ci >/dev/null"
+  bash -c "! git -C '$T/wrong/piabrota/theta.git' rev-parse -q --verify refs/heads/base-ci >/dev/null"
 
 # push after a local rebase: the remote is updated, and the open PR is reused
 git -C "$ROLLOUT_ROOT/alpha" commit -q --amend -m "Base CI, rebased"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push alpha > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push alpha > "$T/out" 2> "$T/err"; rc=$?
 check "push after a local rebase: exit 0" [ "$rc" = 0 ]
 check "push after a local rebase: the remote is updated" [ "$(remote_sha alpha)" = "$(local_sha alpha)" ]
 check "push after a local rebase: the open PR is reused, not a second one" \
@@ -137,7 +137,7 @@ check "push after a local rebase: the token never appears in any output or argum
 git -C "$ROLLOUT_ROOT/alpha" commit -q --amend -m "Base CI, rebased again"
 other="$(git -C "$B/alpha.git" commit-tree -p main -m "someone else" "main^{tree}")"
 echo "alpha $other" > "$T/move"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push alpha beta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push alpha beta > "$T/out" 2> "$T/err"; rc=$?
 check "push when someone else moved the remote branch: exit 1" [ "$rc" = 1 ]
 check "push when someone else moved the remote branch: their commit is not overwritten" [ "$(remote_sha alpha)" = "$other" ]
 check "push when someone else moved the remote branch: stderr names the repo" grep -q '^rollout-ci: alpha: ' "$T/err"
@@ -148,7 +148,7 @@ check "push when someone else moved the remote branch: the token never appears i
 
 # push again: the remote moved between two runs, so push refuses until the move is folded in
 git -C "$ROLLOUT_ROOT/alpha" commit -q --amend -m "Base CI, rebased a third time"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push alpha > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push alpha > "$T/out" 2> "$T/err"; rc=$?
 check "push when the remote moved between two runs: exit 1" [ "$rc" = 1 ]
 check "push when the remote moved between two runs: their commit is not overwritten" [ "$(remote_sha alpha)" = "$other" ]
 check "push when the remote moved between two runs: stderr names the repo, both SHAs and the acknowledgement" \
@@ -158,7 +158,7 @@ check "push when the remote moved between two runs: nothing on stdout, no second
 git -C "$ROLLOUT_ROOT/alpha" fetch -q "$B/alpha.git" base-ci
 git -C "$ROLLOUT_ROOT/alpha" rebase -q "$other"
 git -C "$ROLLOUT_ROOT/alpha" update-ref refs/rollout-ci/base-ci "$other"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push alpha > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push alpha > "$T/out" 2> "$T/err"; rc=$?
 check "push after the move is acknowledged and the branch rebased: exit 0" [ "$rc" = 0 ]
 check "push after the move is acknowledged: the remote is updated, and the last push is recorded" \
   bash -c "[ '$(remote_sha alpha)' = '$(local_sha alpha)' ] && [ '$(ack alpha)' = '$(local_sha alpha)' ]"
@@ -167,40 +167,40 @@ check "push after the move is acknowledged: the open PR is reused" \
 
 # push again: the remote branch was deleted between two runs
 git -C "$B/beta.git" update-ref -d refs/heads/base-ci
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push beta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push beta > "$T/out" 2> "$T/err"; rc=$?
 check "push when the remote branch was deleted between two runs: exit 1, it is not pushed again" \
   bash -c "[ $rc = 1 ] && ! git -C '$B/beta.git' rev-parse -q --verify refs/heads/base-ci >/dev/null"
 check "push when the remote branch was deleted between two runs: the acknowledgement is to drop the record" \
   grep -qx "rollout-ci: beta: the remote base-ci moved: GitHub has none, the last push was $(ack beta); fold it in, then git update-ref -d refs/rollout-ci/base-ci" "$T/err"
 git -C "$ROLLOUT_ROOT/beta" update-ref -d refs/rollout-ci/base-ci
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push beta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push beta > "$T/out" 2> "$T/err"; rc=$?
 check "push after the deletion is acknowledged: exit 0, base-ci is back" \
   bash -c "[ $rc = 0 ] && [ '$(remote_sha beta)' = '$(local_sha beta)' ]"
 
 # push after the merge: main holds lint.yml, so push does nothing
-echo '{"name":"lint.yml"}' > "$FAKE_GH_DIR/GET/$(lint ouroboric-dev zeta).json"
-echo 'HTTP 500' > "$FAKE_GH_DIR/ERR/$(lint ouroboric-dev eta)"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push zeta > "$T/out" 2> "$T/err"; rc=$?
+echo '{"name":"lint.yml"}' > "$FAKE_GH_DIR/GET/$(lint piabrota zeta).json"
+echo 'HTTP 500' > "$FAKE_GH_DIR/ERR/$(lint piabrota eta)"
+GH_TOKEN=$TOKEN "$RC" --org piabrota push zeta > "$T/out" 2> "$T/err"; rc=$?
 check "push when lint.yml is already on main: exit 0" [ "$rc" = 0 ]
 check "push when lint.yml is already on main: it says to run protect" \
   [ "$(cat "$T/out")" = "rollout-ci: zeta: lint.yml is already on main; run protect" ]
 check "push when lint.yml is already on main: nothing is pushed, no PR is touched" \
   bash -c "! git -C '$B/zeta.git' rev-parse -q --verify refs/heads/base-ci >/dev/null && jq -se 'all(.args[0] != \"zeta\")' '$T/bot.log' >/dev/null"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push eta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push eta > "$T/out" 2> "$T/err"; rc=$?
 check "push when the lint.yml lookup fails: exit 1, named, nothing pushed, no PR touched" \
   bash -c "[ $rc = 1 ] && grep -q '^rollout-ci: eta: .*HTTP 500' '$T/err' && ! git -C '$B/eta.git' rev-parse -q --verify refs/heads/base-ci >/dev/null && jq -se 'all(.args[0] != \"eta\")' '$T/bot.log' >/dev/null"
 check "push: the token never appears in any output or argument" no_token
 
 # a first push while someone else creates the remote branch: "must not exist" refuses it
 echo "epsilon $(git -C "$B/epsilon.git" rev-parse main)" > "$T/move"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push epsilon > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push epsilon > "$T/out" 2> "$T/err"; rc=$?
 check "a first push when someone else created the remote branch: exit 1" [ "$rc" = 1 ]
 check "a first push when someone else created the remote branch: it is not overwritten" \
   [ "$(remote_sha epsilon)" = "$(git -C "$B/epsilon.git" rev-parse main)" ]
 check "a first push when someone else created the remote branch: no PR is opened" [ "$(creates_for epsilon)" = 0 ]
 
 # a repo without a local base-ci branch, and one with no clone at all
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev push gamma delta beta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota push gamma delta beta > "$T/out" 2> "$T/err"; rc=$?
 check "a repo without a base-ci branch: exit 1" [ "$rc" = 1 ]
 check "a repo without a base-ci branch: it is skipped and named" \
   [ "$(cat "$T/err")" = "$(printf 'rollout-ci: gamma: no base-ci branch in %s; skipped\nrollout-ci: delta: no base-ci branch in %s; skipped' "$ROLLOUT_ROOT/gamma" "$ROLLOUT_ROOT/delta")" ]
@@ -212,19 +212,19 @@ check "a repo without a base-ci branch: the other repos still run" [ "$(cat "$T/
 # usage
 for args in "" "push" "pull alpha" "push -x" "push ../alpha" "push .." "push ." "protect .."; do
   # shellcheck disable=SC2086  # the words are the arguments
-  GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev $args > "$T/out" 2> "$T/err"; rc=$?
+  GH_TOKEN=$TOKEN "$RC" --org piabrota $args > "$T/out" 2> "$T/err"; rc=$?
   check "usage '$args': exit 2 and no output" bash -c "[ $rc = 2 ] && [ ! -s '$T/out' ]"
 done
-env -u GH_TOKEN "$RC" --org ouroboric-dev push alpha > "$T/out" 2> "$T/err"; rc=$?
+env -u GH_TOKEN "$RC" --org piabrota push alpha > "$T/out" 2> "$T/err"; rc=$?
 check "no GH_TOKEN: exit 2" [ "$rc" = 2 ]
 
 # protect: 200, 404 and 500
-for r in alpha beta gamma; do echo '{}' > "$FAKE_GH_DIR/GET/repos_ouroboric-dev_$r.json"; done
+for r in alpha beta gamma; do echo '{}' > "$FAKE_GH_DIR/GET/repos_piabrota_$r.json"; done
 echo '{}' > "$FAKE_GH_DIR/GET/repos_acme_alpha.json"
-echo '{"name":"lint.yml"}' > "$FAKE_GH_DIR/GET/$(lint ouroboric-dev alpha).json"
-echo 'HTTP 500' > "$FAKE_GH_DIR/ERR/$(lint ouroboric-dev gamma)"
-CONFIG="$(cd "$HERE/../orgs" && pwd)/ouroboric-dev.json"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev protect alpha beta gamma <<<"typed input" > "$T/out" 2> "$T/err"; rc=$?
+echo '{"name":"lint.yml"}' > "$FAKE_GH_DIR/GET/$(lint piabrota alpha).json"
+echo 'HTTP 500' > "$FAKE_GH_DIR/ERR/$(lint piabrota gamma)"
+CONFIG="$(cd "$HERE/../orgs" && pwd)/piabrota.json"
+GH_TOKEN=$TOKEN "$RC" --org piabrota protect alpha beta gamma <<<"typed input" > "$T/out" 2> "$T/err"; rc=$?
 check "protect 200, 404 and 500: exit 1" [ "$rc" = 1 ]
 check "protect: setup runs only for the repo whose lint.yml is on main, with the config, and no stdin" \
   [ "$(cat "$T/setup.log")" = "--config $CONFIG alpha stdin=0" ]
@@ -234,30 +234,30 @@ check "protect: it prints the setup and the check, and says not yet for the 404"
 check "protect: the 500 is printed and named" grep -q '^rollout-ci: gamma: .*HTTP 500' "$T/err"
 check "protect: the token never appears in any output or argument" no_token
 
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev protect nosuch beta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota protect nosuch beta > "$T/out" 2> "$T/err"; rc=$?
 check "protect a repo that doesn't exist: exit 1, named" \
-  bash -c "[ $rc = 1 ] && [ \"\$(cat '$T/err')\" = 'rollout-ci: nosuch: no such repo in ouroboric-dev' ]"
+  bash -c "[ $rc = 1 ] && [ \"\$(cat '$T/err')\" = 'rollout-ci: nosuch: no such repo in piabrota' ]"
 check "protect a repo that doesn't exist: setup never runs for it, the next repo still runs" \
   bash -c "! grep -q nosuch '$T/setup.log' && grep -q '^rollout-ci: beta: ' '$T/out'"
 
 : > "$T/setup.log"; : > "$T/check.log"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev protect alpha beta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN "$RC" --org piabrota protect alpha beta > "$T/out" 2> "$T/err"; rc=$?
 check "protect 200 and 404 only: exit 0" [ "$rc" = 0 ]
 
 : > "$T/setup.log"; : > "$T/check.log"
-echo '{}' > "$FAKE_GH_DIR/GET/repos_ouroboric-dev_.github.json"
-echo '{"name":"lint.yml"}' > "$FAKE_GH_DIR/GET/$(lint ouroboric-dev .github).json"
-GH_TOKEN=$TOKEN "$RC" --org ouroboric-dev protect .github > "$T/out" 2> "$T/err"; rc=$?
+echo '{}' > "$FAKE_GH_DIR/GET/repos_piabrota_.github.json"
+echo '{"name":"lint.yml"}' > "$FAKE_GH_DIR/GET/$(lint piabrota .github).json"
+GH_TOKEN=$TOKEN "$RC" --org piabrota protect .github > "$T/out" 2> "$T/err"; rc=$?
 check "protect .github: exit 0, setup and the ruleset check run for it" \
   bash -c "[ $rc = 0 ] && [ \"\$(cat '$T/setup.log')\" = '--config $CONFIG .github stdin=0' ] && [ \"\$(cat '$T/check.log')\" = '--check ruleset .github stdin=0' ]"
 
 : > "$T/setup.log"; : > "$T/check.log"
-GH_TOKEN=$TOKEN CHECK_FAILS=1 "$RC" --org ouroboric-dev protect alpha beta > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN CHECK_FAILS=1 "$RC" --org piabrota protect alpha beta > "$T/out" 2> "$T/err"; rc=$?
 check "protect when the ruleset check fails: exit 1" [ "$rc" = 1 ]
 check "protect when the ruleset check fails: its result is printed" grep -qx 'FAIL alpha ruleset: stub' "$T/out"
 
 : > "$T/setup.log"; : > "$T/check.log"
-GH_TOKEN=$TOKEN SETUP_FAILS=1 "$RC" --org ouroboric-dev protect alpha > "$T/out" 2> "$T/err"; rc=$?
+GH_TOKEN=$TOKEN SETUP_FAILS=1 "$RC" --org piabrota protect alpha > "$T/out" 2> "$T/err"; rc=$?
 check "protect when setup fails: exit 1, no check, the repo is named" \
   bash -c "[ $rc = 1 ] && [ ! -s '$T/check.log' ] && grep -q '^rollout-ci: alpha: ' '$T/err'"
 
@@ -265,14 +265,14 @@ check "protect when setup fails: exit 1, no check, the repo is named" \
 jq '.org = "acme" | del(.licence_dir)' "$CONFIG" > "$T/acme.json"
 echo '{"name":"lint.yml"}' > "$FAKE_GH_DIR/GET/$(lint acme alpha).json"
 GH_TOKEN=$TOKEN env -u ROLLOUT_BOT "$RC" --config "$T/acme.json" protect alpha > "$T/out" 2> "$T/err"; rc=$?
-check "protect in another org, without ROLLOUT_BOT: setup runs, the ouroboric-dev ruleset check does not" \
+check "protect in another org, without ROLLOUT_BOT: setup runs, the piabrota ruleset check does not" \
   bash -c "[ $rc = 0 ] && [ \"\$(cat '$T/setup.log')\" = '--config $T/acme.json alpha stdin=0' ] && [ ! -s '$T/check.log' ]"
 
-# push in another org without ROLLOUT_BOT: as-bot.sh serves ouroboric-dev only, so nothing is touched
+# push in another org without ROLLOUT_BOT: as-bot.sh serves piabrota only, so nothing is touched
 : > "$T/git.log"; : > "$T/bot.log"
 GH_TOKEN=$TOKEN env -u ROLLOUT_BOT "$RC" --config "$T/acme.json" push alpha > "$T/out" 2> "$T/err"; rc=$?
 check "push in another org without ROLLOUT_BOT: exit 2, and stderr names the org" \
-  bash -c "[ $rc = 2 ] && [ ! -s '$T/out' ] && [ \"\$(cat '$T/err')\" = 'rollout-ci: as-bot.sh serves ouroboric-dev only; set ROLLOUT_BOT for acme' ]"
+  bash -c "[ $rc = 2 ] && [ ! -s '$T/out' ] && [ \"\$(cat '$T/err')\" = 'rollout-ci: as-bot.sh serves piabrota only; set ROLLOUT_BOT for acme' ]"
 check "push in another org without ROLLOUT_BOT: no git command and no bot call" \
   bash -c "[ ! -s '$T/git.log' ] && [ ! -s '$T/bot.log' ]"
 

@@ -3,7 +3,7 @@ date: 2026-10-11
 tags: [docs, diagrams, security, tooling]
 status: resolved
 post-candidate: yes
-evidence: [../4-ways-of-working/diagrams.md, ../assets/diagrams/ouroboric-map.d2]
+evidence: [../4-ways-of-working/diagrams.md, https://github.com/ouroboric-dev/ouroboric/blob/a2573b34e28a13b73701e476499db780eec57d36/docs/assets/diagrams/ouroboric-map.d2]
 ---
 ## Challenge
 

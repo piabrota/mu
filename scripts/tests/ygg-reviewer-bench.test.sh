@@ -242,7 +242,7 @@ EOF
 chmod +x "$T/bin/npm"
 export YGG_REVIEWER_BENCH_NPM="$T/bin/npm" YGG_REVIEWER_BENCH_UNAME="Linux x86_64" XDG_CACHE_HOME="$T/cache"
 nocmd=(--odin "$O" --tasks "$M" --gleipnir "$G")
-CB="$T/cache/ouroboric/opencode/1.18.32/node_modules/opencode-linux-x64/bin/opencode"
+CB="$T/cache/piabrota/opencode/1.18.32/node_modules/opencode-linux-x64/bin/opencode"
 fresh
 run bash "$B" --dry-run --model qwen/qwen3.8-27b --leaf "$F/P4" --sessions 1 --out "$T/dryi" "${nocmd[@]}"
 check "dry run without --opencode: the cache path, 'would install', and nothing installed" \
@@ -250,7 +250,7 @@ check "dry run without --opencode: the cache path, 'would install', and nothing 
 canned 1 '{"findings": []}'
 run bash "$B" --model qwen/qwen3.8-27b --leaf "$F/P0" --sessions 1 --out "$T/inst" "${nocmd[@]}"
 check "the install command is npm install --ignore-scripts --prefix CACHE/1.18.32 opencode-ai@1.18.32" \
-  eval '[ $rc = 0 ] && [ "$(cat "$T/npm.calls")" = "install --ignore-scripts --prefix $T/cache/ouroboric/opencode/1.18.32 opencode-ai@1.18.32" ]'
+  eval '[ $rc = 0 ] && [ "$(cat "$T/npm.calls")" = "install --ignore-scripts --prefix $T/cache/piabrota/opencode/1.18.32 opencode-ai@1.18.32" ]'
 check "the session runs the cached binary, and the summary names it" \
   eval '[ "$(calls)" = 1 ] && grep -q "OpenCode: $CB 1.18.32" "$T/inst/summary.md"'
 fresh

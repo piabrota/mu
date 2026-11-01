@@ -38,9 +38,9 @@ b64d <<<"$s" > "$T/sig"
 verify() { openssl dgst -sha256 -verify "$T/pub.pem" -signature "$T/sig" <(printf '%s.%s' "$h" "$p") >/dev/null; }
 check "the JWT signature verifies with the bot's public key" verify
 
-"$BOT" --read ouroboric,yggdrasil true
+"$BOT" --read mu,yggdrasil true
 check "--read asks for read permissions, with administration read, for each listed repo" \
-  [ "$(last_body)" = '{"permissions":{"administration":"read","contents":"read","metadata":"read","pull_requests":"read"},"repositories":["ouroboric","yggdrasil"]}' ]
+  [ "$(last_body)" = '{"permissions":{"administration":"read","contents":"read","metadata":"read","pull_requests":"read"},"repositories":["mu","yggdrasil"]}' ]
 
 "$BOT" --read all true
 check "--read all asks for read permissions on every repo the bot is installed on" \
@@ -60,11 +60,11 @@ check "git gets the token for github.com, ahead of other helpers" grep -qx 'pass
 out="$(printf 'protocol=https\nhost=example.com\n\n' | "$BOT" yggdrasil git credential fill 2>/dev/null)"
 check "git never sends the token to another host" bash -c "! grep -q ghs_FAKE <<<'$out'"
 check "git uses HTTPS for SSH remotes, so the SSH key is never used" \
-  [ "$("$BOT" yggdrasil git ls-remote --get-url git@github.com:ouroboric-dev/yggdrasil.git)" = https://github.com/ouroboric-dev/yggdrasil.git ]
+  [ "$("$BOT" yggdrasil git ls-remote --get-url git@github.com:piabrota/yggdrasil.git)" = https://github.com/piabrota/yggdrasil.git ]
 check "git keeps HTTPS URLs on HTTPS, even when global rules send them to SSH" \
-  [ "$("$BOT" yggdrasil git ls-remote --get-url https://github.com/ouroboric-dev/yggdrasil.git)" = https://github.com/ouroboric-dev/yggdrasil.git ]
+  [ "$("$BOT" yggdrasil git ls-remote --get-url https://github.com/piabrota/yggdrasil.git)" = https://github.com/piabrota/yggdrasil.git ]
 check "git uses HTTPS for ssh:// remotes too" \
-  [ "$("$BOT" yggdrasil git ls-remote --get-url ssh://git@github.com/ouroboric-dev/yggdrasil.git)" = https://github.com/ouroboric-dev/yggdrasil.git ]
+  [ "$("$BOT" yggdrasil git ls-remote --get-url ssh://git@github.com/piabrota/yggdrasil.git)" = https://github.com/piabrota/yggdrasil.git ]
 
 n="$(wc -l < "$T/log")"
 PR_BOT_DIR="$T/none" "$BOT" yggdrasil touch "$T/ran" 2> "$T/err"; rc=$?

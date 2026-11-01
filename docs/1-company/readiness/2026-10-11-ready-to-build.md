@@ -19,11 +19,7 @@ level 1.
 
 ## Summary
 
-<!-- diagram: assets/diagrams/readiness-levels.mmd -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../../assets/diagrams/rendered/readiness-levels.dark.svg">
-  <img alt="Readiness levels: kickstart, then ready to build before spec and build, ready to launch before deploy-prod, ready to promote before promotion" src="../../assets/diagrams/rendered/readiness-levels.svg">
-</picture>
+![Readiness levels: kickstart, then ready to build before spec and build, ready to launch before deploy-prod, ready to promote before promotion](../../img/readiness-levels.png)
 
 Of 21 items, 21 are met, 0 are partial and 0 are missing (re-run on 2026-10-14).
 
@@ -54,7 +50,7 @@ Review in this order to close the most items fastest. This assessment doubles as
 | RB-04 | Roadmaps written? | met | [company roadmap](../roadmap.md) and [Yggdrasil roadmap](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/roadmap.md), accepted on 2026-10-12; self-hosting stage 1 requires the change graph, the Go realm and `guardrail-change` first | — |
 | RB-05 | Principles as `AGENTS.md` invariants? | met | `AGENTS.md` with an `## Invariants` section in the umbrellas ([ouroboric #19](https://github.com/ouroboric-dev/ouroboric/pull/19), [yggdrasil #10](https://github.com/ouroboric-dev/yggdrasil/pull/10), [asgard #5](https://github.com/ouroboric-dev/asgard/pull/5)), derived from the accepted charters; every component repo's `AGENTS.md` links the yggdrasil invariants and defines none of its own; `check-repos.sh --check agents` passes on all repos (v0-T006) | — |
 | RB-06 | Name checked? | met | [name checks](../../5-research/2026-10-12-name-checks.md), 2026-10-12: `ouroboric.dev` owned; `ouroboric` free on npm, PyPI, crates.io and Homebrew (taken on Docker Hub; official images go to `ghcr.io/ouroboric-dev`); trademark screening found no "Ouroboric" mark (nearest: OROBOROUS, status unknown); product names used under the Ouroboric umbrella | formal trademark search before launch (Asgard checklist RL-08); founder claims `ouroboric` on npm and PyPI (crates.io skipped: no Rust planned) |
-| RB-07 | Brand seed written? | met | [naming and mythology](../../7-branding/story/naming-and-mythology.md); [logo prompts](../../7-branding/prompts/nano-banana-logo-prompts.md) | — |
+| RB-07 | Brand seed written? | met | [naming and mythology](../../7-branding/story/naming-and-mythology.md); [logo prompts](https://github.com/ouroboric-dev/ouroboric/blob/a2573b34e28a13b73701e476499db780eec57d36/docs/7-branding/prompts/nano-banana-logo-prompts.md) | — |
 | RB-08 | Licence chosen for public work? | met | [licence map](../legal/README.md): AGPL-3.0 factory code, MIT copied templates, CC BY 4.0 docs; [trademarks](../../../TRADEMARKS.md) | — |
 | RB-09 | Contribution terms in place? | met | read-only publication: code of conduct, security policy and contributing guide in the organisation's `.github` repository; a contributor licence agreement is required before the first outside contribution ([legal](../legal/README.md#contributions)) | — |
 | RB-10 | Ownership clear? | met | confirmed by the founder on 2026-10-11 | — |
@@ -68,7 +64,7 @@ Review in this order to close the most items fastest. This assessment doubles as
 | RB-18 | Implementation plan accepted? | met | [v0 implementation plan](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/2-engineering/plans/2026-10-12-yggdrasil-v0/plan.md), accepted by the founder's merge of [yggdrasil #8](https://github.com/ouroboric-dev/yggdrasil/pull/8) on 2026-10-12; Phase 0's tasks in full, later phases' tasks written just in time | — |
 | RB-19 | Technical risks identified, tested first? | met | [sandbox spike report](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/5-research/2026-10-12-sandbox-spike.md) ([yggdrasil #11](https://github.com/ouroboric-dev/yggdrasil/pull/11), v0-T001 to v0-T003): rootless engine on the Podman machine with the instance tree bind-mounted under `/mnt/wsl`, host registry credentials kept out of pulls; repo hooks and project MCP servers blocked on subscription auth with `--setting-sources user --strict-mcp-config`; OpenRouter `data_collection: deny` and `zdr: true` verified on a real call; per-container resource limits recorded as an accepted v0 gap; humanizer's licence deferred (marketing text is out of v0's scope) | — |
 | RB-20 | Success measure fixed in advance? | met | v0 success criteria in the [design doc §2.3](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/1-product/design/2026-10-11-yggdrasil-v0-design.md#23-success-criteria); the brief was frozen in v0-H02, before any factory run, as [`mimir/client-gallery-lite`](https://github.com/ouroboric-dev/mimir/tree/main/client-gallery-lite) task version 4.0.0, SHA-256 `bd4b2c7aaf532d51acb3a7edfd5b193d368db8445093b7a24cd80b7ee24d8319`; the hidden suite (29 scenarios) was written by the founder from the brief alone and is kept in a private repo the pr-bot can't reach | — |
-| RB-21 | Minimal visual identity defined? | met | [identity](../../7-branding/identity/README.md): palette (Midnight with International Orange, all pairs WCAG AA), typography (Cinzel, Fjalla One, Literata, Inter, JetBrains Mono, runic ornament, all under the OFL), diagrams in the palette and Inter in light and dark, and the [logo](../../7-branding/identity/logo/README.md): icon, Cinzel wordmark, light and dark versions, favicon and app icons, under the trademark policy | — |
+| RB-21 | Minimal visual identity defined? | met | [identity](../../7-branding/identity/README.md): palette (Midnight with International Orange, all pairs WCAG AA), typography (Cinzel, Fjalla One, Literata, Inter, JetBrains Mono, runic ornament, all under the OFL), diagrams in the palette and Inter in light and dark, and the [logo](https://github.com/ouroboric-dev/ouroboric/blob/a2573b34e28a13b73701e476499db780eec57d36/docs/7-branding/identity/logo/README.md): icon, Cinzel wordmark, light and dark versions, favicon and app icons, under the trademark policy | — |
 
 ## Next assessment
 

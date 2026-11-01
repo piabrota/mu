@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Create the ouroboric-pr-bot GitHub App from pr-bot.json, and save its key for as-bot.sh.
+# Create the piabrota-pr-bot GitHub App from pr-bot.json, and save its key for as-bot.sh.
 # Founder-run, once. The script serves a local page that sends the manifest to GitHub. GitHub then
 # sends the browser back with a one-time code, which the script trades for the App's key. The key
 # is written to a private file and never printed.
 #   create-pr-bot.sh      then open http://localhost:8719/ in a browser signed in as an org owner
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ORG="ouroboric-dev"
-DIR="${PR_BOT_DIR:-$HOME/.config/ouroboric/pr-bot}"
+ORG="piabrota"
+DIR="${PR_BOT_DIR:-$HOME/.config/piabrota/pr-bot}"
 API="${PR_BOT_API:-https://api.github.com}"
 WEB="${PR_BOT_WEB:-https://github.com}"
 PORT="${PR_BOT_PORT:-8719}"

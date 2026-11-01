@@ -1,7 +1,9 @@
-# AGENTS.md: Ouroboric
+# AGENTS.md: piabrota
 
-Ouroboric is the company. This umbrella holds the company docs, the standards every product
-inherits, and the products as submodules under `products/`. Start with `docs/README.md`.
+piabrota is the company, an open software fabric made in Rio de Janeiro. This umbrella, `mu`, holds the
+company docs, the standards every product inherits, and the products as submodules under `products/`.
+Read [`DOGMA.md`](DOGMA.md) first: it wins over this file. [`PIABROTA.md`](PIABROTA.md) indexes the org's
+repos. Start with `docs/README.md`.
 
 ## Invariants
 
@@ -9,7 +11,8 @@ These rules apply to every repo in this tree. A product's `AGENTS.md` may add ru
 loosen these.
 
 1. Humans steer. Stop and ask when work would leave an approved charter, spec or plan.
-2. Write the failing test first. A test that never failed proves nothing.
+2. Write a test only when it is a proven regression guardrail ([dogma 2](DOGMA.md)): it reproduces a failure that
+   happened, and it fails without the fix. A test that never failed proves nothing.
 3. Never merge a pull request, and never push to `main`. Humans merge: an agent may arm auto-merge on a pull
    request it opens (`scripts/pr-open.sh`), because the ruleset still requires a human's approval, and that approval
    is the merge decision. Never approve a pull request, never use an admin bypass, and never arm auto-merge on a
@@ -27,23 +30,36 @@ loosen these.
 
 ## Map
 
+- The rules: `DOGMA.md`; the org's repos: `PIABROTA.md`; decision models: `docs/DECISION_MODELS.md`.
 - Company direction: `docs/1-company/` (charter, roadmap, budget, legal, readiness, repositories).
 - Standards: `docs/4-ways-of-working/` (spec-driven development, docs standard, writing styles,
   diagrams).
 - Research and journal: `docs/5-research/`, `docs/6-journal/`.
-- Brand: `docs/7-branding/` (story, identity, logo).
+- Brand: `docs/7-branding/` (identity, voice, the naming record).
+
+## The brain
+
+[pirsig](https://github.com/piabrota/pirsig) will manage this repo. `brain/` is its fork state, and
+`pirsig.toml` its config: load it with `psg fork import`, write it back with `psg fork export`.
+
+- **PARA:** areas are the company's ongoing work, projects are outcomes with an end.
+- **Smart notes:** a thought starts in the inbox and ends as a permanent note, in your own words.
+- **Track record:** each high-level decision is a permanent note tagged `decision`, listed in the hub
+  note "Decisions: the track record". Add its outcome to the note when the outcome is known.
+
+Until the handover, `docs/` stays the source of truth; a `**Decided YYYY-MM-DD:**` line inside a doc stays valid.
 
 ## Scripts
 
 `scripts/` holds the tools of this tree. Before you run a GitHub, container-engine, plan or repo command by hand,
 look here: a script exists for it, and the script is the deterministic way. Read the header of a script before
-you run it. If you write a reusable script, it goes here with a test in `scripts/tests/`, never only in a scratch
-folder.
+you run it. If you write a reusable script, it goes here, never only in a scratch folder; a test goes in
+`scripts/tests/` when dogma 2 asks for one.
 
 | Need | Script |
 | --- | --- |
-| Push, open a pull request or read GitHub as `ouroboric-pr-bot` | `scripts/as-bot.sh <repo> <cmd>`; `--read all` to read. The only way an agent reaches GitHub; to open a pull request, `scripts/pr-open.sh` is the default |
-| Open a pull request as `ouroboric-pr-bot` and arm auto-merge on it: the default way an agent opens one. A human's approval still decides the merge; if arming fails the PR stays open and the script says why. A PR stacked on a branch other than the default one is opened without auto-merge | `scripts/pr-open.sh <repo> [gh pr create args]`, e.g. `scripts/pr-open.sh gleipnir --base main --head my-branch --title "…" --body-file body.md`. Prints the PR's URL. Never merges directly, never `--admin` |
+| Push, open a pull request or read GitHub as `piabrota-pr-bot` | `scripts/as-bot.sh <repo> <cmd>`; `--read all` to read. The only way an agent reaches GitHub; to open a pull request, `scripts/pr-open.sh` is the default |
+| Open a pull request as `piabrota-pr-bot` and arm auto-merge on it: the default way an agent opens one. A human's approval still decides the merge; if arming fails the PR stays open and the script says why. A PR stacked on a branch other than the default one is opened without auto-merge | `scripts/pr-open.sh <repo> [gh pr create args]`, e.g. `scripts/pr-open.sh gleipnir --base main --head my-branch --title "…" --body-file body.md`. Prints the PR's URL. Never merges directly, never `--admin` |
 | Build `ygg` from the umbrella's checkouts, so a smoke or proof run never uses a stale one | `scripts/ygg-build.sh [--yggdrasil DIR] [--out FILE [--beside-path]] [--allow-behind] [--force]`. Refuses a dirty module or one behind its local `origin/main` (it fetches nothing); builds to the `ygg` first on PATH (else `$(go env GOPATH)/bin/ygg`) and writes the commits to `OUT.build.txt`; a link is followed to its target; an error if `command -v ygg` is not OUT, unless `--beside-path` (needs `--out`): a second ygg beside the one on PATH, built with its facts, and the script prints `YGG_CMD=OUT` to run it. Never overwrites a file that is not a Go binary without `--force`. The smoke and proof scripts refuse a `ygg` from PATH, or a `YGG_CMD` of one executable file, whose facts do not name odin's HEAD (`--any-ygg` skips that; a `YGG_CMD` of several words is used unchecked) |
 | Clean up after runs that have ended: the empty pods and leftover containers | `scripts/ygg-clean.sh --dry-run [--folder DIR] [--keep PROJECT]... [PROJECT...]`, then without `--dry-run`. Runs `ygg doctor` on each project under DIR (default `~/ygg-it`) with the config its runs used; skips a project with a live run (its lock in `/proc/locks`, or open in a process) and refuses when it cannot tell; never deletes a run, a project or an image, and never starts or stops the engine |
 | Set up and check the GPU for the engine: the NVIDIA toolkit (pinned 1.20.1) and the CDI spec in the Podman machine's distro on WSL2, repeatable after a driver update or on a new machine | `scripts/ygg-gpu.sh setup\|check [--machine NAME] [--folder DIR]`. `setup` installs only what is missing and regenerates a stale spec, then runs `check`; `check` runs the CUDA image (by digest) through `ygg-engine.sh` and prints `gpu: <name> <memory>`, or exits 3 with `missing: toolkit\|spec\|stale spec` and the fix, or 2 when the engine does not answer. Root commands go through `wsl.exe -u root`, never sudo; it never starts, stops or re-creates the machine |
@@ -63,8 +79,9 @@ folder.
 | Push the prepared `base-ci` branches of existing repos and open their PRs, then require `lint` after the merge | `scripts/rollout-ci.sh --org <org> push\|protect <repo>...`. Founder only |
 | Prove that a Markdown change is formatting only, such as `markdownlint-cli2 --fix` output | `scripts/md-same-text.sh <base-ref> <head-ref>` |
 | Check the journal against spec §10.5 and design criterion 6: front matter, sections, the index, evidence once resolved, a `factory-change` entry citing `ygg metrics --compare` | `scripts/journal-check.sh [DIR]` |
-| Scaffold a new Go component | `scripts/scaffold-component.sh` |
-| Render and check diagrams | `scripts/diagrams.sh` |
+| Scaffold a new Rust component, rendered by `minijinja-cli` | `scripts/scaffold-component.sh` |
+| Render `PIABROTA.md` from `scripts/piabrota/repos.toml`, or check that it is fresh | `scripts/piabrota-index.sh [--check]` |
+| Draw every plot with archify, or check that the PNGs are fresh | `scripts/figure.sh draw\|check`. Sources in `docs/archify/`, PNGs in `docs/img/`, the pinned archify in `forks/archify` |
 
 Only the founder runs `scripts/new-repo.sh`, `scripts/create-repo.sh`, `scripts/add-licences.sh`, `scripts/add-ci.sh`,
 `scripts/setup-repo.sh`, `scripts/rollout-ci.sh` and `scripts/create-pr-bot.sh`.
