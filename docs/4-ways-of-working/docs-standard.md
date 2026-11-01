@@ -7,13 +7,13 @@ related: [spec-driven-development.md]
 
 # Documentation standard
 
-**Ouroboric, its products, and every product they build** use one documentation template. The
+**piabrota, its products, and every product they build** use one documentation template. The
 factories document themselves the way they document what they make. Agents learn one map, and Odin's
 routing and docs checks work the same everywhere.
 
 ## 1. Umbrella template
 
-A node is one of three kinds: **company umbrellas** (for example, `ouroboric`, or a company that
+A node is one of three kinds: **company umbrellas** (for example, `mu`, or a company that
 the Asgard realm kickstarted), **product umbrellas** (for example, `yggdrasil`, a client gallery) and
 **leaves**. Company
 umbrellas use `1-company/` (charter, roadmap, legal, readiness) instead of `1-product/`, and hold the
@@ -46,8 +46,9 @@ docs/
         concepts/          proposals and explorations kept for the record
     voice/                 tone, vocabulary, messaging pillars, copywriting rules
     prompts/               image-generation and copy prompts
-  assets/
-    diagrams/              diagram sources and their light and dark renders (see diagrams.md)
+  archify/                 plot sources (see diagrams.md)
+  img/                     the plots, drawn by archify
+  mockups/                 mockups, as OpenPencil files
 ```
 
 Raw sources that shouldn't be published, such as AI-generated rasters, stay out of the repo; only
@@ -129,8 +130,7 @@ Give each folder that has no content yet a short `README.md` that says what belo
 - **Writing style:** every document has a style (legal, spec, procedure, marketing and others), set
   per section with overrides per folder or document. See [writing styles](writing-styles.md).
   Everywhere: short sentences, active voice, concrete examples, no undefined jargon.
-- **Diagrams:** written as code (Mermaid, D2 and others) in `docs/assets/diagrams/`, rendered through a
-  local Kroki. See [diagrams](diagrams.md).
+- **Plots and mockups:** every plot is drawn with archify, and every mockup with OpenPencil. See [diagrams](diagrams.md).
 
 ## 6. Docs are checked like code
 
@@ -149,8 +149,7 @@ As marola puts it, writing a doc is a deploy.
 - **Renderer: Zensical**, the successor to Material for MkDocs from the same
   team. It reads `mkdocs.yml`. Material for MkDocs is in maintenance mode, with security fixes only until
   about November 2026.
-- **Stay renderer-agnostic:** plain Markdown, front matter, Mermaid, and the HTML `<picture>` element
-  for light and dark images. Don't use renderer-specific syntax in the docs themselves. Then switching renderers means a new config file, not rewritten docs.
+- **Stay renderer-agnostic:** plain Markdown, front matter and images. Don't use renderer-specific syntax in the docs themselves. Then switching renderers means a new config file, not rewritten docs.
 - **Aggregation:** each umbrella's site includes its children's docs at their pinned SHAs, recursively
   down the tree (marola's `prepare-docs.sh` pattern). The site shows what has actually been validated.
 - **Known gaps:** Zensical doesn't yet have every Material plugin (redirects, blog, RSS, social cards).
@@ -164,7 +163,7 @@ names or code, no client data, no raw transcripts or ledger excerpts from privat
 
 ## 9. Repository setup
 
-Every public `ouroboric-dev` repo must pass [`scripts/check-repos.sh`](../../scripts/check-repos.sh). It
+Every repo on the list in [`scripts/check-repos.sh`](../../scripts/check-repos.sh) must pass it. It
 checks:
 
 - the repo settings: public, squash merges only, no wiki, and issues on for the factories
@@ -197,7 +196,7 @@ Run one check with `--check <name>`, or name repos to check only those.
   repo. If a step fails after a repo is created, the script names the repo and says it is not
   protected. Then the founder adds each public repo to the pr-bot's installation, as the script's
   output says. `--private` makes a hidden repo, which is never added. Another org copies
-  [`scripts/orgs/ouroboric-dev.json`](../../scripts/orgs/ouroboric-dev.json) to
+  [`scripts/orgs/piabrota.json`](../../scripts/orgs/piabrota.json) to
   `scripts/orgs/<org>.json` and changes the values ([the keys](../../scripts/orgs/README.md)).
   An operator's own account works the same way with `"owner": "user"`. Its config lives in
   `scripts/orgs/local/`, which git ignores, and is never committed
@@ -220,7 +219,7 @@ Run one check with `--check <name>`, or name repos to check only those.
   and `actions/setup-python`, at the SHAs it pins, or `lint` never starts; a pin bump updates the
   allowlist too.
 - **Existing repos get the same base CI.** An agent prepares each repo's `base-ci` branch in a fresh
-  clone under `rollout/`, beside the `ouroboric` checkout. `add-ci.sh --upgrade` replaces the old
+  clone under `rollout/`, beside the `mu` checkout. `add-ci.sh --upgrade` replaces the old
   gitleaks-only config, and formatting-only fixes make the hooks pass;
   [`scripts/md-same-text.sh`](../../scripts/md-same-text.sh) proves each Markdown fix changes no
   text. Then the founder runs
@@ -237,7 +236,7 @@ Run one check with `--check <name>`, or name repos to check only those.
   runs the realm's tests with the template tests set to fail, not skip (helheim-go has one
   template test that still skips in CI, until its backlog item B-057 lands). A `ci.yml` in each template
   (job `test`), on the stack's pinned images. And a readiness assessment against the
-  [realm readiness checklist](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/2-engineering/realm-readiness.md),
+  [realm readiness checklist](https://github.com/piabrota/yggdrasil/blob/main/docs/2-engineering/realm-readiness.md),
   filed in the Yggdrasil repo. The `shared` check of `check-repos.sh` fails when a realm's copy of a
   shared file, such as `devcontainer/checks/docs.sh`, differs from `helheim-go`'s.
 - **A lint config bends only for a reason.** When a linter and the house style disagree, ask
@@ -247,12 +246,12 @@ Run one check with `--check <name>`, or name repos to check only those.
   default. Nothing is excluded from gitleaks or reuse.
   [The bends and their reasons](../../scripts/templates/ci/README.md).
 - **Agents never create repos or change their settings.** They reach GitHub only as
-  `ouroboric-pr-bot`, through [`scripts/as-bot.sh`](../../scripts/as-bot.sh), which can't; run the
+  `piabrota-pr-bot`, through [`scripts/as-bot.sh`](../../scripts/as-bot.sh), which can't; run the
   checks with `scripts/as-bot.sh --read all scripts/check-repos.sh`.
-- **Agents scaffold a new Yggdrasil component** with
+- **Agents scaffold a new Rust component** with
   [`scripts/scaffold-component.sh <repo> "<job>" <clone>`](../../scripts/scaffold-component.sh), in
   a clone of a new repo, on top of the first commit that `new-repo.sh` made. It adds the files
-  from `scripts/templates/go-component/`, appends its sections to the README that commit holds,
+  from `scripts/templates/rust-component/`, rendered by `minijinja-cli`, appends its sections to the README that commit holds,
   keeps the pre-commit config as it is, and leaves the architecture doc's responsibilities for a
   person to write. The result goes through a PR.
 - **Reusable tooling lives here until it has a better home.** Any script that could run again goes

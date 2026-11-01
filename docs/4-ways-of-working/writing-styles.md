@@ -9,7 +9,7 @@ related: [docs-standard.md, spec-driven-development.md]
 
 Different documents have different readers. Each document has one **style**, and each style has an
 id. A style names the skills an agent loads when writing, the house rules that apply, and the checks
-that run on the result. This standard applies to every Ouroboric product and to everything they build.
+that run on the result. This standard applies to every piabrota product and to everything they build.
 
 ## 1. Which style applies
 

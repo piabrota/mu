@@ -1,126 +1,38 @@
 ---
-title: Diagrams
+title: Plots and mockups
 status: accepted
-date: 2026-10-12
-related: [docs-standard.md, writing-styles.md]
-style: guide
+date: 2026-11-01
+related: [docs-standard.md, ../../DOGMA.md]
+style: procedure
 ---
 
-# Diagrams
+# Plots and mockups
 
-Diagrams are written as code, kept next to the docs, and rendered to SVG through a **local**
-[Kroki](https://kroki.io). The pattern follows marola's
-[DIAGRAMS.md](https://github.com/marola-dev/marola/blob/main/docs/3-Ways-of-working/DIAGRAMS.md).
-Until the docs build exists, a script renders the SVGs and the docs embed them as images; when the
-build lands, it renders the same sources itself.
+[Dogma 6](../../DOGMA.md) sets one tool for each, so anyone can reproduce the result. Don't use Mermaid,
+D2 or a hand-drawn SVG.
 
-## 1. Which dialect
+## Plots: archify
 
-| Picture | Dialect | File extension |
-| --- | --- | --- |
-| flow, decision tree, pipeline, lifecycle, sequence, state, ER, gantt | Mermaid | `.mmd` |
-| layered or zoned architecture, module maps, trust boundaries | D2 | `.d2` |
-| people and systems (C4 context or container) | C4-PlantUML | `.puml` |
-| a database schema | DBML | `.dbml` |
-| a chart from numbers (benchmarks, metrics) | Vega-Lite | `.vl.json` |
-| a sketch or wireframe, only when hand-drawn is genuinely clearer | Excalidraw | `.excalidraw` |
+Every plot is drawn with archify, from the fork pinned in [`forks/archify`](../../forks/archify).
 
-## 2. Rules
+1. Write the source in `docs/archify/<slug>.json`.
+2. Run `scripts/figure.sh draw`. It validates the source, applies piabrota's look
+   (`docs/archify/piabrota.css`) and writes `docs/img/<slug>.png`. It needs node, jq, perl and Chrome.
+3. Show the PNG in a doc, with alt text that says what the figure says.
+4. Add a reading card under it: how to read the figure, and its source.
+5. If the page has empty space below the drawing, set its height in `docs/archify/crop.tsv`.
 
-- **The prose is the source of truth.** Draw only what the text beside the diagram says, and keep the
-  text. A diagram that disagrees with its page is a bug in the diagram.
-- **Keep diagrams under about 15 nodes.** Split a diagram rather than grow it.
-- **Labels are short and plain.** Use the words the page uses.
-- **Diagrams follow the [identity](../7-branding/identity/README.md).** The render script reads the
-  palette from `tokens.json` and sets every diagram in **Inter**, the interface face. Each diagram is
-  rendered twice: `<name>.svg` in the light palette and `<name>.dark.svg` in the dark palette.
-- **Colour has one meaning.** International Orange marks human approval points, hard stops and trust
-  boundaries. Everything else is neutral: text, muted lines and outlines, surface-coloured groups.
-  Text on orange is Midnight, never white.
-- **Sources never contain colour codes.** A colour written into a source would be right in one mode
-  and wrong in the other. Use the names the script provides instead:
-  - **D2:** `${accent}`, `${muted}`, `${surface}`, `${border}`, `${text}`, `${bg}` and `${on-accent}`
-    in styles, for example `style.stroke: ${accent}`. Don't add a `vars.d2-config` block; the script
-    sets the theme.
-  - **Mermaid:** the classes `gate` (an orange approval point), `cond` (a dashed orange outline, for a
-    conditional step) and `inverse` (text-coloured fill, for emphasis), for example
-    `class GD gate`. Don't write `classDef` lines; the script adds them for each mode.
-- **Every image has alt text** that states what the diagram shows, for readers who can't see it.
-- **Mermaid labels are plain SVG text.** The render script sets `htmlLabels: false`, because GitHub and
-  some Markdown previewers drop the HTML labels Mermaid uses by default, leaving empty boxes.
-- **Check renders in a browser.** Tools such as `rsvg-convert` also drop HTML labels and give a false
-  alarm; open the SVG in a browser, or screenshot it with headless Chrome.
-- **Excalidraw needs an extra 612 MB container.** Use it only where a sketch earns it.
+`scripts/figure.sh check` runs offline. It fails when a PNG is missing, no doc shows it, or a source, the
+look or the archify pin changed since the last draw.
 
-## 3. Where files live
+To bump archify, change the submodule's commit in its own pull request, then draw every figure again.
 
-```text
-docs/assets/diagrams/
-  <name>.mmd | .d2 | .puml | .dbml | .vl.json | .excalidraw    the source (edit this)
-  rendered/<name>.svg, rendered/<name>.dark.svg               generated; never edit by hand
-  rendered/manifest.tsv                                        source hashes, for the freshness check
-```
+## Mockups: OpenPencil
 
-A page embeds a diagram with a marker comment naming its source, then a `<picture>` that shows the
-dark render in dark mode and the light render otherwise:
+Every mockup is an OpenPencil `.fig` file in `docs/mockups/`, or beside the product it designs. Commit
+the `.fig` file and its exports together.
 
-```markdown
-<!-- diagram: assets/diagrams/architecture.d2 -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/diagrams/rendered/architecture.dark.svg">
-  <img alt="Yggdrasil architecture: the ygg CLI drives Odin, which uses Gleipnir, Jormungandr and the realms" src="../assets/diagrams/rendered/architecture.svg">
-</picture>
-```
+Agents reach OpenPencil through its MCP server, pinned as `@open-pencil/mcp@0.16.0`, limited to the
+mockups folder with `OPENPENCIL_MCP_ROOT`. A mockup is a draft: the code stays the source of truth.
 
-The marker path is relative to `docs/`; the image paths are relative to the page. GitHub shows the
-render that matches the reader's GitHub theme. The `alt` text is the same for both.
-
-## 4. Render locally
-
-The script is `scripts/diagrams.sh` in the `ouroboric` repository.
-
-1. Start Kroki: `scripts/diagrams.sh up` (Kroki core and its Mermaid companion, pinned to
-   0.32.1, in a Podman pod that publishes no port). The first run downloads Inter 4.1 from its
-   official release, checks it against a pinned SHA-256, caches it in `~/.cache/ouroboric/fonts/` and
-   copies it into the pod.
-2. Render a repository's diagrams: `scripts/diagrams.sh render ../yggdrasil`.
-3. Check freshness: `scripts/diagrams.sh check ../yggdrasil`. The check fails when a source changed
-   without re-rendering, or a marker names a missing source.
-4. Stop Kroki: `scripts/diagrams.sh down`.
-
-**How the font gets into the SVG.** An SVG shown as an image can't load web fonts, so each SVG carries
-its own copy of the glyphs it uses. D2 runs as a CLI inside the pod, because only the CLI accepts
-custom fonts, and it embeds them itself. For Mermaid, the script installs Inter in the Mermaid
-container so labels are measured with Inter, then embeds the used glyphs with fonttools (pinned, run
-through `uv`). The script needs `podman`, `curl`, `unzip`, `python3` and `uv`.
-
-**Freshness covers the theme.** The manifest records each source's hash and a hash of the render
-setup (the script and `tokens.json`). Changing the palette or the script marks every diagram stale.
-
-**Kroki stays local.** The script reaches Kroki only from inside its pod, with `podman exec`, so
-diagram sources never leave the machine. Diagram sources describe architecture and security controls;
-sending a private product's diagrams to a public rendering service would publish them. Publishing no
-port also keeps renders working after a crash: a container that dies uncleanly can leave its
-port-forwarding rule behind, and that rule then shadows the same port on the next pod.
-
-**When a render fails.** `diagrams.sh render` stops at the first failing source and names it. Ask
-Kroki directly to see its error:
-`podman exec -i ouroboric-kroki-core curl -s -X POST --data-binary @- http://127.0.0.1:8000/mermaid/svg < source.mmd`.
-If the pod is gone, for example after the Podman machine restarted, run `scripts/diagrams.sh down`
-and then `scripts/diagrams.sh up`.
-
-## 5. When the docs build lands
-
-The docs build (Zensical with a Kroki plugin, iteration 2) renders diagrams itself. Then:
-
-1. A script replaces each marker and image pair with a fence that loads the same source, for example
-   a `d2` fence containing `@from_file:assets/diagrams/architecture.d2`.
-2. `rendered/` is deleted and ignored.
-3. The freshness check is replaced by the build's own failure on a broken diagram.
-4. Diagrams used outside the docs site keep a committed SVG: the organisation profile
-   (`.github/profile/README.md`) links `ouroboric-map.svg` directly, so that file stays rendered and
-   committed.
-
-The build must apply the same theme: the token palette, Inter, and both light and dark renders. Until
-a plugin can, the script stays the renderer. The sources don't change, which is why they live in their
-own files today.
+No mockup exists in this repo yet.

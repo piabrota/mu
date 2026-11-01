@@ -1,33 +1,43 @@
-# Ouroboric
+<img alt="無, mu, no thing: the kanji brushed in twelve strokes, from pirsig" src="https://raw.githubusercontent.com/piabrota/pirsig/b7dd1da2ac886845b14bb90e5d8d34976cfc95cb/docs/drawings/pirsig.svg" width="200"/>
 
-Ouroboric (ouroboric.dev) builds open factories that improve themselves: for software, companies,
-and in time research and art. This repository is the company umbrella. Start with the
-[charter](docs/1-company/charter.md).
+# mu
+
+無 · the piabrota umbrella · [dogma](DOGMA.md) · [repos](PIABROTA.md) · [decision models](docs/DECISION_MODELS.md) · [charter](docs/1-company/charter.md) · [licence](#licence)
+
+## In one minute
+
+- **mu is the company umbrella of [piabrota](https://github.com/piabrota)**, an open software fabric
+  made in Rio de Janeiro. It holds the dogma, the charter, the standards, the journal and the tools
+  that every piabrota project inherits.
+- **[DOGMA.md](DOGMA.md) holds the ten invariants.** Agents fix every error a user or an owner reports,
+  in short pull requests. Judgement is decision-oriented: evidence, a decision model, calibrated
+  probabilities, rules that humans define, a verdict.
+- **[PIABROTA.md](PIABROTA.md) indexes every public repo of the org.**
+- **[pirsig](https://github.com/piabrota/pirsig) will manage this repo:** smart notes, PARA and a
+  track record of high-level decisions. [`brain/`](brain/) is its fork state.
+- **mu began as a copy of Ouroboric's umbrella.** [NOTICE.md](NOTICE.md) keeps that credit.
 
 ## The map
 
-<!-- diagram: assets/diagrams/ouroboric-map.d2 -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/diagrams/rendered/ouroboric-map.dark.svg">
-  <img alt="Ouroboric map: the founder approves direction in the Asgard realm (readiness checklist, kickstart graph later); Yggdrasil, the agentic factory, contains Odin, Jormungandr, Gleipnir, Havamal, Voluspa (the graph library, which gives Odin its graphs), the realms (Midgard and Helheim in v0, Jotunheim and Muspelheim later), the Asgard realm, and Ginnungagap (later), which creates realms, all honouring the Gungnir contract, with Ratatoskr, Norns, Mimir and Bragi later; the Asgard realm kickstarts and the other realms build companies and products, whose lessons and benchmarks feed back into Ouroboric" src="docs/assets/diagrams/rendered/ouroboric-map.svg">
-</picture>
+![piabrota map: the founder approves direction in the Asgard realm (readiness checklist, kickstart graph later); Yggdrasil, the agentic factory, contains Odin, Jormungandr, Gleipnir, Havamal, Voluspa (the graph library, which gives Odin its graphs), the realms (Midgard and Helheim in v0, Jotunheim and Muspelheim later), the Asgard realm, and Ginnungagap (later), which creates realms, all honouring the Gungnir contract, with Ratatoskr, Norns, Mimir and Bragi later; the Asgard realm kickstarts and the other realms build companies and products, whose lessons and benchmarks feed back into piabrota](docs/img/piabrota-map.png)
 
-The names come from Norse myth; the [naming and mythology record](docs/7-branding/story/naming-and-mythology.md) tells the story behind each one, and its
-[long-term map](docs/7-branding/story/naming-and-mythology.md#glossary) shows what comes after v0.
+**How to read this figure.** Top to bottom, one lane per role. An arrow says what flows, and a red border marks a person or what the factory makes. The source is [`piabrota-map.json`](docs/archify/piabrota-map.json).
+
+The factory's names come from Norse myth, and they are Ouroboric's; the
+[naming and mythology record](docs/7-branding/story/naming-and-mythology.md) tells the story behind each one.
 
 ## Contents
 
 | Folder | What's there |
 | --- | --- |
 | [`1-company/`](docs/1-company/charter.md) | charter, roadmap, budget, legal, readiness, [repositories](docs/1-company/repos.md) |
-| [`4-ways-of-working/`](docs/4-ways-of-working/spec-driven-development.md) | the standards every Ouroboric product follows: [spec-driven development](docs/4-ways-of-working/spec-driven-development.md), [docs](docs/4-ways-of-working/docs-standard.md), [writing styles](docs/4-ways-of-working/writing-styles.md), [diagrams](docs/4-ways-of-working/diagrams.md) |
+| [`4-ways-of-working/`](docs/4-ways-of-working/spec-driven-development.md) | the standards every piabrota product follows: [spec-driven development](docs/4-ways-of-working/spec-driven-development.md), [docs](docs/4-ways-of-working/docs-standard.md), [writing styles](docs/4-ways-of-working/writing-styles.md), [diagrams](docs/4-ways-of-working/diagrams.md) |
 | [`5-research/`](docs/5-research/README.md) | company-level research |
 | [`6-journal/`](docs/6-journal/README.md) | the journey: challenges, solutions, results |
-| [`7-branding/`](docs/7-branding/README.md) | the Ouroboric story, identity, voice, prompts |
+| [`7-branding/`](docs/7-branding/README.md) | the piabrota identity and voice, and the naming record |
+| [`brain/`](brain/) | pirsig's fork state: PARA, smart notes, the track record |
 
-The [repositories](docs/1-company/repos.md) page lists every repo in the `ouroboric-dev`
-organisation and where it sits in the tree. The products are submodules under
-[`products/`](products/): clone with `--recurse-submodules`.
+The products are submodules under [`products/`](products/): clone with `--recurse-submodules`.
 
 ## Contributing
 
@@ -35,8 +45,8 @@ Run `uvx pre-commit install` once after cloning, so `gitleaks` checks each commi
 
 ## Licence
 
-- **Documentation** (this repository's main content): [CC BY 4.0](LICENSE).
+- **Documentation** that came from Ouroboric: [CC BY 4.0](LICENSE).
 - **Scripts** (`scripts/`): [AGPL-3.0](LICENSES/AGPL-3.0-only.txt).
+- **What piabrota wrote new**, such as the dogma and the Rust templates: [MPL-2.0](LICENSES/MPL-2.0.txt).
+  [`REUSE.toml`](REUSE.toml) says which file is which.
 - **Names and logos** are not licensed: see [TRADEMARKS.md](TRADEMARKS.md).
-- The products use AGPL-3.0 for factory code and MIT for anything copied into what operators build.
-  **What you build with Ouroboric factories is yours.**

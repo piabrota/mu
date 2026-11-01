@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Readiness levels: three gates on the way to promotion",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "output": "readiness-levels.html"
+  },
+  "lanes": [
+    {
+      "id": "work",
+      "label": "Work"
+    },
+    {
+      "id": "gate",
+      "label": "Gates"
+    }
+  ],
+  "mainPath": [
+    "kick",
+    "rb",
+    "build",
+    "rl",
+    "deploy",
+    "rp",
+    "promo"
+  ],
+  "nodes": [
+    {
+      "id": "kick",
+      "lane": "work",
+      "col": 0,
+      "type": "backend",
+      "label": "Kickstart",
+      "width": 170
+    },
+    {
+      "id": "build",
+      "lane": "work",
+      "col": 1,
+      "type": "backend",
+      "label": "Spec, plan, build",
+      "width": 170
+    },
+    {
+      "id": "deploy",
+      "lane": "work",
+      "col": 2,
+      "type": "backend",
+      "label": "deploy-prod",
+      "width": 170
+    },
+    {
+      "id": "promo",
+      "lane": "work",
+      "col": 3,
+      "type": "backend",
+      "label": "Promotion",
+      "width": 170
+    },
+    {
+      "id": "rb",
+      "lane": "gate",
+      "col": 0,
+      "type": "external",
+      "label": "Ready to build",
+      "width": 170
+    },
+    {
+      "id": "rl",
+      "lane": "gate",
+      "col": 1,
+      "type": "external",
+      "label": "Ready to launch",
+      "width": 170
+    },
+    {
+      "id": "rp",
+      "lane": "gate",
+      "col": 2,
+      "type": "external",
+      "label": "Ready to promote",
+      "width": 170
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "kick",
+      "to": "rb"
+    },
+    {
+      "id": "e2",
+      "from": "rb",
+      "to": "build"
+    },
+    {
+      "id": "e3",
+      "from": "build",
+      "to": "rl"
+    },
+    {
+      "id": "e4",
+      "from": "rl",
+      "to": "deploy"
+    },
+    {
+      "id": "e5",
+      "from": "deploy",
+      "to": "rp"
+    },
+    {
+      "id": "e6",
+      "from": "rp",
+      "to": "promo"
+    }
+  ]
+}

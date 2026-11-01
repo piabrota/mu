@@ -255,7 +255,7 @@ oneCase() { # oneCase CASE: build the project, run it to its end, grade it again
   project="$v/project"
   mkdir -p "$project"
   git -C "$project" init -q -b main
-  printf 'root: true\nowner: ouroboric-dev\nvisibility: private\n' >"$project/umbrella.yaml"
+  printf 'root: true\nowner: piabrota\nvisibility: private\n' >"$project/umbrella.yaml"
   if [ -n "$suitedir" ]; then
     project_from_reference "$c" "$project"
     script empty "$v/script.yaml"

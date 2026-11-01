@@ -1,0 +1,197 @@
+# The data behind PIABROTA.md. Change this file, then run scripts/piabrota-index.sh.
+# Private repos are never listed, only counted: this repository is public.
+[meta]
+as_of = "2026-11-01"
+private_count = 2
+
+[[umbrella]]
+name = "mu"
+licence = "CC BY 4.0, AGPL-3.0, MPL-2.0"
+what = "The company umbrella: dogma, charter, standards, journal, brand and the scripts every project inherits."
+
+[[umbrella]]
+name = ".github"
+licence = "MPL-2.0"
+what = "The org's profile, with the project table, the fabric figure and the funding links."
+
+[[project]]
+name = "pirsig"
+lane = "think and write"
+licence = "MPL-2.0"
+what = "A second brain: PARA and a Zettelkasten slip-box. A Rust app with a desktop app, a REST API and the `psg` CLI, on one model layer."
+role = "Will manage this repo: `brain/` is its fork state."
+
+[[project]]
+name = "gramatico"
+lane = "think and write"
+licence = "MPL-2.0"
+what = "Rewrites technical text in Brazilian Portuguese so that it reads once. A Claude Code plugin that marks with `⚠` what it did not check."
+role = "Holds the `bipr` skill for bilingual pull requests."
+
+[[project]]
+name = "alerts"
+lane = "warn and host"
+licence = "MPL-2.0"
+what = "A generic alert platform, from official sources only, delivered to Discord and an Atom feed with CAP 1.2. The first hazard is floods in the south of Brazil."
+role = "Served at piabrota.art/alerts (coming)."
+
+[[project]]
+name = "rax"
+lane = "warn and host"
+licence = "MPL-2.0, parts Apache-2.0"
+what = "Rustic Agentic Runtime: a pure-Rust port of AX, the declarative orchestrator for agentic tasks, with AX's API."
+role = "Runs the agents' tasks on the VPS, one pod per run."
+
+[[project]]
+name = "agents"
+lane = "warn and host"
+licence = "MPL-2.0"
+what = "Small agents that watch nix-os and its VPS: deploy doctor, pull request reviewer, mentions, mirror keeper, flake annotator, feedback, health digest."
+role = "Act on GitHub as the App `piabrota-ops`, installed on nix-os only."
+
+[[project]]
+name = "nix-os"
+lane = "warn and host"
+licence = "MPL-2.0"
+what = "The NixOS configuration of the small VPS that serves piabrota.art. A merge to `main` is a deploy."
+role = "Hosts the site, rax, the agents and PGX."
+
+[[project]]
+name = "ihoje"
+lane = "archived"
+licence = "no licence file"
+what = "A Rust event scraper with anime-inspired module names. Archived and no longer maintained."
+role = "None."
+
+[[fork]]
+name = "yggdrasil"
+upstream = "ouroboric-dev/yggdrasil"
+group = "The factory"
+sync = "even"
+why = "Submodule of this repo: the agentic factory."
+
+[[fork]]
+name = "asgard"
+upstream = "ouroboric-dev/asgard"
+group = "The factory"
+sync = "even"
+why = "Submodule of this repo: the kickstart realm."
+
+[[fork]]
+name = "skills"
+upstream = "davidondrej/skills"
+group = "Agents and memory"
+sync = "even"
+why = "Agent skills."
+
+[[fork]]
+name = "relay"
+upstream = "ronaknnathani/relay"
+group = "Agents and memory"
+sync = "even"
+why = "Skills that orchestrate coding agents on long tasks."
+
+[[fork]]
+name = "rea"
+upstream = "morluto/rea"
+group = "Agents and memory"
+sync = "761 behind"
+why = "Reverse engineering with agents."
+
+[[fork]]
+name = "TencentDB-Agent-Memory"
+upstream = "TencentCloud/TencentDB-Agent-Memory"
+group = "Agents and memory"
+sync = "even"
+why = "A team-level memory hub for agents."
+
+[[fork]]
+name = "axon"
+upstream = "danieltamas/axon"
+group = "Agents and memory"
+sync = "even"
+why = "Reads agent harness logs: speed, cost and output per model."
+
+[[fork]]
+name = "bton"
+upstream = "danieltamas/bton"
+group = "Agents and memory"
+sync = "11 behind"
+why = "A team's review flow with coding agents, from the macOS menu bar."
+
+[[fork]]
+name = "archify"
+upstream = "tt-a1i/archify"
+group = "Figures and graphs"
+sync = "14 behind"
+why = "Draws every plot of the org; this repo pins it in `forks/archify`."
+
+[[fork]]
+name = "graphify"
+upstream = "Graphify-Labs/graphify"
+group = "Figures and graphs"
+sync = "179 behind"
+why = "Knowledge graphs; `psg graph` exports for it."
+
+[[fork]]
+name = "pgx"
+upstream = "pgrundev/pgx"
+group = "Runtimes and compilers"
+sync = "even"
+why = "Postgres-compatible engine in Rust; nix-os runs it for rax's store."
+
+[[fork]]
+name = "rust-cuda"
+upstream = "Rust-GPU/rust-cuda"
+group = "Runtimes and compilers"
+sync = "even"
+why = "GPU code in Rust."
+
+[[fork]]
+name = "lean_kernel_verify"
+upstream = "facebookresearch/lean_kernel_verify"
+group = "Runtimes and compilers"
+sync = "even"
+why = "A compiler-based safety checker for GPU kernels, in Lean 4."
+
+[[fork]]
+name = "thc"
+upstream = "ekmett/thc"
+group = "Runtimes and compilers"
+sync = "even"
+why = "The Turbo Haskell Compiler."
+
+[[fork]]
+name = "core"
+upstream = "home-assistant/core"
+group = "Other"
+sync = "795 behind"
+why = "Home Assistant: local home automation."
+
+[[fork]]
+name = "edit"
+upstream = "fmhy/edit"
+group = "Other"
+sync = "7 behind"
+why = "Changes to FMHY."
+
+[[fork]]
+name = "prj-gd-engine"
+upstream = "mbracali/prj-gd-engine"
+group = "Other"
+sync = "179 behind"
+why = "Re-implementations of guitar music games."
+
+[[fork]]
+name = "naruto-unison"
+upstream = "naruto-unison/naruto-unison"
+group = "Other"
+sync = "even"
+why = "Naruto Unison, a game."
+
+[[fork]]
+name = "OpenVoice"
+upstream = "myshell-ai/OpenVoice"
+group = "Other"
+sync = "even"
+why = "Instant voice cloning."

@@ -34,11 +34,11 @@ def repo_routes(method, path, body):
 
 def routes():
     return {
-        ("GET", "/orgs/ouroboric-dev/installation"): (200, {"id": 42}),
+        ("GET", "/orgs/piabrota/installation"): (200, {"id": 42}),
         ("POST", "/app/installations/42/access_tokens"):
             (201, {"token": "ghs_FAKE", "expires_at": "2099-01-01T00:00:00Z"}),
         ("POST", "/app-manifests/good-code/conversions"):
-            (201, {"id": 7, "slug": "ouroboric-pr-bot", "client_id": "Iv1.test",
+            (201, {"id": 7, "slug": "piabrota-pr-bot", "client_id": "Iv1.test",
                    "client_secret": "SECRET_CS", "webhook_secret": None,
                    "pem": open(os.environ["FAKE_PEM"]).read() if "FAKE_PEM" in os.environ else ""}),
     }

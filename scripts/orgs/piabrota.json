@@ -1,0 +1,19 @@
+{
+  "org": "piabrota",
+  "licence": "MPL-2.0",
+  "copyright": "piabrota contributors",
+  "licence_dir": "../../LICENSES",
+  "issues_on": [
+    "yggdrasil",
+    "asgard"
+  ],
+  "ci": [
+    "reuse",
+    "markdown",
+    "actions"
+  ],
+  "after_create": {
+    "public": "Add {repo} to the pr-bot: https://github.com/organizations/piabrota/settings/installations, piabrota-pr-bot, Configure, Repository access.",
+    "private": "Never add {repo} to the pr-bot: agents must not see this repo."
+  }
+}

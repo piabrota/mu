@@ -49,7 +49,7 @@ differs by even one byte, it exits 2 and writes nothing; every other target must
 
 The rollout to an existing repo, one `base-ci` branch per repo:
 
-1. An agent clones the repo fresh into `rollout/<repo>`, beside the `ouroboric` checkout, and cuts `base-ci`
+1. An agent clones the repo fresh into `rollout/<repo>`, beside the `mu` checkout, and cuts `base-ci`
    from `origin/main`. It runs `add-ci.sh --upgrade`, then fixes what the hooks flag, formatting only, until
    both `pre-commit run --all-files` and `pre-commit run --hook-stage manual gitleaks-history --all-files` (the
    whole history) pass. `md-same-text.sh origin/main HEAD` proves each Markdown fix keeps the text, the code
@@ -82,7 +82,7 @@ Change the `rev` in a reviewed pull request. The release must be at least two we
 action SHAs and `pre-commit==...` follow the same rule. Run `bash scripts/tests/add-ci.test.sh` before the
 pull request, because it runs every hook for real.
 
-An org whose Actions policy allows only listed actions (ouroboric-dev's does) must list both of `lint.yml`'s
+An org whose Actions policy allows only listed actions (piabrota's does) must list both of `lint.yml`'s
 actions, `actions/checkout` and `actions/setup-python`, at the exact SHAs it pins. Otherwise `lint` ends in
 `startup_failure` and never runs. So a bump of either action SHA also updates the org's allowlist. A
 user's repo holds its own allowlist: run `setup-repo.sh` on each of them after the bump.

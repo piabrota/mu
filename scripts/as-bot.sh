@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run a command as ouroboric-pr-bot, with a token that lasts one hour and reaches only the named repos.
+# Run a command as piabrota-pr-bot, with a token that lasts one hour and reaches only the named repos.
 # The command gets the token as GH_TOKEN, and git gets it for https://github.com only. SSH remotes
 # are rewritten to HTTPS, so the SSH key is never used. This script never prints the token, and it
 # is the only thing that reads the bot's key. Agent-run.
@@ -8,8 +8,8 @@
 #   as-bot.sh yggdrasil gh pr create --title ... --body-file ...
 #   as-bot.sh --read all scripts/check-repos.sh
 set -euo pipefail
-ORG="ouroboric-dev"
-DIR="${PR_BOT_DIR:-$HOME/.config/ouroboric/pr-bot}"
+ORG="piabrota"
+DIR="${PR_BOT_DIR:-$HOME/.config/piabrota/pr-bot}"
 API="${PR_BOT_API:-https://api.github.com}"
 die() { echo "as-bot: $*" >&2; exit 2; }
 
@@ -51,7 +51,7 @@ token="$(call POST "/app/installations/$inst/access_tokens" "$req" | jq -r .toke
 [ -n "$token" ] && [ "$token" != null ] || die "GitHub's reply held no token"
 
 # An empty helper drops every helper configured before it, so ours is the only one for github.com.
-# Git applies the longest matching insteadOf, so the ouroboric-dev rule beats any global rule that
+# Git applies the longest matching insteadOf, so the piabrota rule beats any global rule that
 # sends https://github.com/ to SSH.
 # shellcheck disable=SC2016  # the credential helper is single-quoted on purpose: git runs it, so $1 and $GH_TOKEN expand there
 export GH_TOKEN="$token" GIT_TERMINAL_PROMPT=0 GIT_CONFIG_COUNT=5 \
@@ -60,6 +60,6 @@ export GH_TOKEN="$token" GIT_TERMINAL_PROMPT=0 GIT_CONFIG_COUNT=5 \
   GIT_CONFIG_VALUE_1='!f() { test "$1" = get && printf "username=x-access-token\npassword=%s\n" "$GH_TOKEN"; }; f' \
   GIT_CONFIG_KEY_2="url.https://github.com/.insteadOf" GIT_CONFIG_VALUE_2="git@github.com:" \
   GIT_CONFIG_KEY_3="url.https://github.com/.insteadOf" GIT_CONFIG_VALUE_3="ssh://git@github.com/" \
-  GIT_CONFIG_KEY_4="url.https://github.com/ouroboric-dev/.insteadOf" GIT_CONFIG_VALUE_4="https://github.com/ouroboric-dev/"
+  GIT_CONFIG_KEY_4="url.https://github.com/piabrota/.insteadOf" GIT_CONFIG_VALUE_4="https://github.com/piabrota/"
 unset GITHUB_TOKEN
 exec "$@"

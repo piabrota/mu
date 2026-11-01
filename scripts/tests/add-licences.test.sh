@@ -35,13 +35,13 @@ version = 1
 [[annotations]]
 path = ["**"]
 precedence = "closest"
-SPDX-FileCopyrightText = "2026 Bruno Guilhermo de Barros Valério"
+SPDX-FileCopyrightText = "2026 Valério Acme"
 SPDX-License-Identifier = "AGPL-3.0-only"
 
 [[annotations]]
 path = ["docs/**", "README.md", "AGENTS.md"]
 precedence = "closest"
-SPDX-FileCopyrightText = "2026 Bruno Guilhermo de Barros Valério"
+SPDX-FileCopyrightText = "2026 Valério Acme"
 SPDX-License-Identifier = "CC-BY-4.0"
 EOF2
 
@@ -49,9 +49,17 @@ cfg() { printf '%s\n' "$2" > "$T/$1.json"; }
 files() { (cd "$1" && find . -type f | LC_ALL=C sort | tr '\n' ' '); }
 empty() { [ -z "$(ls -A "$1")" ]; }
 
+mkdir "$T/org"
+"$S" --org piabrota --year 2026 "$T/org"
+check "piabrota: the MPL text and REUSE.toml" \
+  [ "$(files "$T/org")" = "./LICENSE ./LICENSES/MPL-2.0.txt ./REUSE.toml " ]
+check "LICENSE is the MPL text" cmp -s "$LICENSES/MPL-2.0.txt" "$T/org/LICENSE"
+
+# An org with a separate docs licence: the four files.
+cfg two '{"org": "acme", "licence": "AGPL-3.0-only", "docs_licence": "CC-BY-4.0", "docs_paths": ["docs/**", "README.md", "AGENTS.md"], "copyright": "Valério Acme", "licence_dir": "'"$LICENSES"'"}'
 mkdir "$T/dev"
-"$S" --org ouroboric-dev --year 2026 "$T/dev"
-check "ouroboric-dev: the four files" \
+"$S" --config "$T/two.json" --year 2026 "$T/dev"
+check "two licences: the four files" \
   [ "$(files "$T/dev")" = "./LICENSE ./LICENSES/AGPL-3.0-only.txt ./LICENSES/CC-BY-4.0.txt ./REUSE.toml " ]
 check "REUSE.toml is today's, byte for byte" cmp -s "$T/golden.toml" "$T/dev/REUSE.toml"
 check "LICENSE is the AGPL text" cmp -s "$LICENSES/AGPL-3.0-only.txt" "$T/dev/LICENSE"
@@ -73,7 +81,7 @@ check "no licence_dir: reuse download" case1
 # An existing target: exit 2, nothing else written.
 mkdir "$T/ex"
 echo mine > "$T/ex/REUSE.toml"
-"$S" --org ouroboric-dev --year 2026 "$T/ex" 2>/dev/null; rc=$?
+"$S" --org piabrota --year 2026 "$T/ex" 2>/dev/null; rc=$?
 check "an existing REUSE.toml: nothing is written" case2
 
 # A missing text in licence_dir: exit 2, nothing written.
@@ -98,14 +106,14 @@ check "a failed download part way: nothing is written" case4
 
 # --check.
 mkdir "$T/chk"
-"$S" --org ouroboric-dev --check; rc1=$?
+"$S" --org piabrota --check; rc1=$?
 ADD_LICENCES_REUSE="$T/bin/reuse" "$S" --config "$T/one.json" --check; rc2=$?
 ADD_LICENCES_REUSE="$T/nope" "$S" --config "$T/one.json" --check 2>/dev/null; rc3=$?
 "$S" --config "$T/miss.json" --check 2>/dev/null; rc4=$?
 check "--check writes nothing" case5
 
 # Bad year.
-"$S" --org ouroboric-dev --year 26 "$T/chk" 2>/dev/null; rc=$?
+"$S" --org piabrota --year 26 "$T/chk" 2>/dev/null; rc=$?
 check "a year of other than four digits is refused" case6
 
 # The real tool.

@@ -3,7 +3,7 @@
 The journey journal: one entry per challenge met while building Yggdrasil, with the options we
 considered, what we chose, and the measured result. In the naming story these entries are the
 **sagas**; a future content component (**Bragi**) will turn them into blog posts. Spec:
-[§13.5](https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/2-engineering/specs/2026-10-11-yggdrasil-v0-spec.md#105-journey-journal).
+[§13.5](https://github.com/piabrota/yggdrasil/blob/main/docs/2-engineering/specs/2026-10-11-yggdrasil-v0-spec.md#105-journey-journal).
 
 ## Checking
 

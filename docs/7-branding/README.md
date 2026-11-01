@@ -1,11 +1,12 @@
 # Branding
 
-The source of the Ouroboric and Yggdrasil identity.
+The source of the piabrota identity in this repo.
 
 | Folder | Holds |
 | --- | --- |
-| [`story/`](story/naming-and-mythology.md) | the naming record and mythology: the story every name, logo and line of copy should fit |
-| [`identity/`](identity/README.md) | the design language: palette and tokens (decided), logo, favicon and typography (open) |
-| `voice/` | tone, vocabulary, messaging pillars, copywriting rules |
-| [`prompts/`](prompts/nano-banana-logo-prompts.md) | image-generation prompts |
-| `assets/` | source SVG and PNG files |
+| [`identity/`](identity/README.md) | the design language: palette, tokens and typography |
+| [`voice/`](voice/README.md) | tone and copywriting rules |
+| [`story/`](story/naming-and-mythology.md) | the record of the factory's Norse names, which are Ouroboric's |
+
+The piabrota logo is the green eye over the word PIABROTA, on red. It is the org's GitHub avatar, and it
+is not stored here. Ouroboric's logos were removed from this repo: see [NOTICE.md](../../NOTICE.md).

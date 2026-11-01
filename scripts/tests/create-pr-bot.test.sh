@@ -25,11 +25,11 @@ export PR_BOT_API PR_BOT_WEB="http://example.invalid"
 start "$T/cfg/pr-bot"
 state="$(grep -o 'state=[0-9a-f]*' "$T/page" | head -1 | cut -d= -f2)"
 check "the page posts to the org's new-App form with a random state" \
-  grep -q "action=\"http://example.invalid/organizations/ouroboric-dev/settings/apps/new?state=[0-9a-f]\{32\}\"" "$T/page"
+  grep -q "action=\"http://example.invalid/organizations/piabrota/settings/apps/new?state=[0-9a-f]\{32\}\"" "$T/page"
 manifest="$(grep -o 'name="manifest" value="[^"]*"' "$T/page" | sed 's/^name="manifest" value="//; s/"$//' \
   | python3 -I -c 'import html,sys; print(html.unescape(sys.stdin.read()))')"
 check "the manifest is the private pr-bot with the plan's permissions" \
-  [ "$(jq -cS '[.name,.public,.default_permissions]' <<<"$manifest")" = '["ouroboric-pr-bot",false,{"administration":"read","contents":"write","metadata":"read","pull_requests":"write"}]' ]
+  [ "$(jq -cS '[.name,.public,.default_permissions]' <<<"$manifest")" = '["piabrota-pr-bot",false,{"administration":"read","contents":"write","metadata":"read","pull_requests":"write"}]' ]
 check "the manifest sends the browser back to this script" \
   [ "$(jq -r .redirect_url <<<"$manifest")" = "http://localhost:$PORT/done" ]
 check "a redirect with the wrong state is refused" [ "$(status "http://127.0.0.1:$PORT/done?code=good-code&state=bad")" = 400 ]
@@ -40,7 +40,7 @@ check "the script exits 0" [ "$rc" = 0 ]
 check "the key is saved" cmp -s "$T/fake.pem" "$T/cfg/pr-bot/key.pem"
 check "the key and its folder are private" [ "$(stat -c %a "$T/cfg/pr-bot" "$T/cfg/pr-bot/key.pem" | tr '\n' ' ')" = "700 600 " ]
 check "app.env holds the client id" grep -qx 'PR_BOT_CLIENT_ID=Iv1.test' "$T/cfg/pr-bot/app.env"
-check "the output links the install page" grep -q 'http://example.invalid/apps/ouroboric-pr-bot/installations/new' "$T/out"
+check "the output links the install page" grep -q 'http://example.invalid/apps/piabrota-pr-bot/installations/new' "$T/out"
 check "the output says selected repos only, never the hidden ones" \
   bash -c "grep -q 'Only select repositories' '$T/out' && grep -q 'never huldra' '$T/out' && ! grep -q 'all repositories' '$T/out'"
 check "the output holds no key and no client secret" bash -c "! grep -q -e 'PRIVATE KEY' -e SECRET_CS '$T/out'"

@@ -3,7 +3,7 @@ date: 2026-10-12
 tags: [brand, design, logo, accessibility]
 status: resolved
 post-candidate: yes
-evidence: [../7-branding/identity/logo/README.md, ../7-branding/identity/logo/concepts/README.md]
+evidence: [https://github.com/ouroboric-dev/ouroboric/blob/a2573b34e28a13b73701e476499db780eec57d36/docs/7-branding/identity/logo/README.md, https://github.com/ouroboric-dev/ouroboric/blob/a2573b34e28a13b73701e476499db780eec57d36/docs/7-branding/identity/logo/concepts/README.md]
 ---
 ## Challenge
 

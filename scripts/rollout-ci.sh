@@ -2,7 +2,7 @@
 # shellcheck source-path=SCRIPTDIR
 # Roll the base CI out to existing repos in the org that a config names, in two steps. An agent has
 # prepared each repo's base-ci branch in a clone at $ROLLOUT_ROOT/<repo> (default: rollout/ beside the
-# ouroboric checkout), with add-ci.sh --upgrade and the formatting fixes.
+# mu checkout), with add-ci.sh --upgrade and the formatting fixes.
 #   push:    pushes each local base-ci branch to GitHub, then opens its pull request as the pr-bot
 #            (as-bot.sh), or prints the one already open. The founder pushes because the pr-bot can't
 #            push .github/workflows/. Each push is recorded in the clone's refs/rollout-ci/base-ci. A
@@ -13,7 +13,7 @@
 #            again. A repo whose main already holds lint.yml (the PR merged) is left alone. A repo
 #            without a local base-ci branch is skipped and named.
 #   protect: after the merge, runs setup-repo.sh on each repo whose main holds
-#            .github/workflows/lint.yml, so lint becomes required, then (for ouroboric-dev)
+#            .github/workflows/lint.yml, so lint becomes required, then (for piabrota)
 #            check-repos.sh --check ruleset. A repo whose main has no lint.yml yet is named and left
 #            alone, so lint is never required early. A repo that doesn't exist fails.
 # Both are safe to run twice. Exit 0 when every repo succeeded or is not ready yet, 1 when any repo was
@@ -21,7 +21,7 @@
 # Founder-run: GH_TOKEN must hold the same short-lived admin token as new-repo.sh (Contents and
 # Workflows write for push, Administration for protect). Git gets it only through the credential
 # helper; it is never printed. The pr-bot's key must be in place for as-bot.sh. as-bot.sh serves
-# ouroboric-dev only: push in another org exits 2, before any repo is touched, unless ROLLOUT_BOT names
+# piabrota only: push in another org exits 2, before any repo is touched, unless ROLLOUT_BOT names
 # a script that runs a command as that org's bot (as-bot.sh's arguments: <repo> <command>...).
 #   GH_TOKEN=... rollout-ci.sh (--org <name>|--config <path>) push|protect <repo>...
 set -euo pipefail
@@ -33,7 +33,7 @@ GIT="${ROLLOUT_GIT:-https://github.com}"
 BOT="${ROLLOUT_BOT:-$HERE/as-bot.sh}"
 SETUP="${ROLLOUT_SETUP:-$HERE/setup-repo.sh}"
 CHECK="${ROLLOUT_CHECK:-$HERE/check-repos.sh}"
-PROPOSAL="https://github.com/ouroboric-dev/yggdrasil/blob/main/docs/2-engineering/changes/2026-10-18-base-ci-rollout/proposal.md"
+PROPOSAL="https://github.com/piabrota/yggdrasil/blob/main/docs/2-engineering/changes/2026-10-18-base-ci-rollout/proposal.md"
 die() { echo "rollout-ci: $*" >&2; exit 2; }
 # shellcheck source=repo-config.sh
 . "$HERE/repo-config.sh"
@@ -51,8 +51,8 @@ for r in "$@"; do
   # GitHub names: .github is one; . and .. are paths, and a leading - would read as an option.
   [[ "$r" =~ ^[A-Za-z0-9._-]+$ && "$r" != -* && "$r" != . && "$r" != .. ]] || die "bad repo name: $r"
 done
-if [ "$mode" = push ] && [ "$RC_ORG" != ouroboric-dev ] && [ -z "${ROLLOUT_BOT:-}" ]; then
-  die "as-bot.sh serves ouroboric-dev only; set ROLLOUT_BOT for $RC_ORG"
+if [ "$mode" = push ] && [ "$RC_ORG" != piabrota ] && [ -z "${ROLLOUT_BOT:-}" ]; then
+  die "as-bot.sh serves piabrota only; set ROLLOUT_BOT for $RC_ORG"
 fi
 
 # The helper reads GH_TOKEN when git asks, so the token never appears in a command line. Git applies
@@ -143,7 +143,7 @@ protect_one() {
       echo "rollout-ci: $r: setup-repo.sh failed" >&2
       return 1
     fi
-    [ "$RC_ORG" = ouroboric-dev ] || return 0
+    [ "$RC_ORG" = piabrota ] || return 0
     "$CHECK" --check ruleset "$r"
   elif [ "$s" = 1 ]; then
     echo "rollout-ci: $r: lint.yml is not on main yet; not protected"

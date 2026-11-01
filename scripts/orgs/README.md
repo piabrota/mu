@@ -3,7 +3,7 @@
 One JSON file per org, `scripts/orgs/<org>.json`. An operator's own account, with `"owner": "user"`,
 has its config in [`local/`](local/README.md), which git ignores: never commit one. The repo scripts
 read a config with `--org <name>`, from either folder, or with `--config <path>` for a file elsewhere.
-To add an org, copy `ouroboric-dev.json` as the example and change the values. A key that is not listed here, or a value that breaks a rule, stops the script with
+To add an org, copy `piabrota.json` as the example and change the values. A key that is not listed here, or a value that breaks a rule, stops the script with
 exit code 2.
 
 | Key | Required | Meaning |
@@ -14,7 +14,7 @@ exit code 2.
 | `docs_licence` | with `docs_paths` | SPDX id of the licence for the docs. Set both `docs_licence` and `docs_paths`, or neither. |
 | `docs_paths` | with `docs_licence` | Non-empty list of path globs that take `docs_licence`, such as `["docs/**", "README.md"]`. |
 | `copyright` | yes | The copyright holder. Non-empty, with no `"`, `\` or newline. Non-ASCII letters are fine. |
-| `licence_dir` | no | Folder with the licence texts. A relative path counts from the config file's folder. Without it, the texts come from `reuse download` through uvx, which needs the network. ouroboric-dev's `../../LICENSES` resolves only inside the ouroboric repo. |
+| `licence_dir` | no | Folder with the licence texts. A relative path counts from the config file's folder. Without it, the texts come from `reuse download` through uvx, which needs the network. piabrota's `../../LICENSES` resolves only inside the mu repo. |
 | `issues_on` | no | Repos that keep GitHub issues on. All other repos have issues off. |
 | `ci` | no | Pieces of the base CI, such as `reuse` ([the pieces](../templates/ci/README.md)). If absent or empty, only gitleaks runs. |
 | `after_create` | no | Messages for the founder after a repo is created: `public` and `private`. `{repo}` becomes the repo name. |
@@ -43,6 +43,6 @@ config's `copyright`, in `REUSE.toml`. The scripts work as for an org, with thes
   `setup-repo.sh` again.
 - The user is the only person with write access, so nobody else can approve a pull request. The user
   merges through the admin bypass, which the ruleset still allows only for a pull request.
-- The pr-bot is installed on ouroboric-dev only, so agents can't reach the repo. To let them in, install
+- The pr-bot is installed on piabrota only, so agents can't reach the repo. To let them in, install
   a bot on the account for that repo alone.
 - Agents never write an operator's config. The operator copies the example and fills it in.

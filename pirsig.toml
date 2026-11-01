@@ -1,0 +1,8 @@
+# pirsig.toml: how pirsig runs on this repo. psg reads this file from the repo's root.
+# brain/ is the fork state: psg fork import reads it, psg fork export writes it.
+[template]
+repo = "piabrota/mu"
+branch = "main"
+
+[brain]
+fork_state = "brain"

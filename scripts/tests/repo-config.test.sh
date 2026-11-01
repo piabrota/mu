@@ -26,24 +26,25 @@ refused() {
 cfg() { printf '%s\n' "$2" > "$T/$1.json"; }
 base='"org": "acme", "licence": "MIT", "copyright": "Acme"'
 
-out="$(load --org ouroboric-dev)"
-check "ouroboric-dev loads" bash -c "[ \"\$1\" = \"\$2\" ]" _ "$out" "ORG=ouroboric-dev
-LIC=AGPL-3.0-only
-DLIC=CC-BY-4.0
-PATHS=\"docs/**\", \"README.md\", \"AGENTS.md\"
-CR=Bruno Guilhermo de Barros Valério
+out="$(load --org piabrota)"
+check "piabrota loads" bash -c "[ \"\$1\" = \"\$2\" ]" _ "$out" "ORG=piabrota
+LIC=MPL-2.0
+DLIC=
+PATHS=
+CR=piabrota contributors
 DIR=$(cd "$HERE/../../LICENSES" && pwd)
 ISSUES= yggdrasil asgard 
 CI=reuse,markdown,actions"
 check "licence_dir is the umbrella's LICENSES" \
-  [ "$(load --org ouroboric-dev | sed -n 's/^DIR=//p')" = "$(cd "$HERE/../../LICENSES" && pwd)" ]
+  [ "$(load --org piabrota | sed -n 's/^DIR=//p')" = "$(cd "$HERE/../../LICENSES" && pwd)" ]
+cfg accent '{"org": "acme", "licence": "MIT", "copyright": "Valério Acme"}'
 check "the holder keeps its accent" \
-  [ "$(load --org ouroboric-dev | sed -n 's/^CR=//p')" = 'Bruno Guilhermo de Barros Valério' ]
+  [ "$(load --config "$T/accent.json" | sed -n 's/^CR=//p')" = 'Valério Acme' ]
 check "after_create fills the repo" \
-  [ "$( . "$HERE/../repo-config.sh"; repo_config_args --org ouroboric-dev; repo_config_load; repo_after_create public alpha)" = \
-    'Add alpha to the pr-bot: https://github.com/organizations/ouroboric-dev/settings/installations, ouroboric-pr-bot, Configure, Repository access.' ]
+  [ "$( . "$HERE/../repo-config.sh"; repo_config_args --org piabrota; repo_config_load; repo_after_create public alpha)" = \
+    'Add alpha to the pr-bot: https://github.com/organizations/piabrota/settings/installations, piabrota-pr-bot, Configure, Repository access.' ]
 check "after_create private fills the repo" \
-  [ "$( . "$HERE/../repo-config.sh"; repo_config_args --org ouroboric-dev; repo_config_load; repo_after_create private beta)" = \
+  [ "$( . "$HERE/../repo-config.sh"; repo_config_args --org piabrota; repo_config_load; repo_after_create private beta)" = \
     'Never add beta to the pr-bot: agents must not see this repo.' ]
 check "no after_create prints nothing" bash -c "
   echo '{$base}' > '$T/min.json'
@@ -96,9 +97,9 @@ mkdir -p "$T/orgs"; cp "$T/other.json" "$T/orgs/acme.json"
 REPO_ORGS_DIR="$T/orgs" check "an org that differs from --org is refused" refused --org acme
 check "a bad --org name is refused" refused --org '../x'
 check "--org with a missing file is refused" refused --org nonesuch
-check "--org plus --config is refused" refused --org ouroboric-dev --config "$T/min.json"
-check "--config plus --org is refused" refused --config "$T/min.json" --org ouroboric-dev
-check "--org twice is refused" refused --org ouroboric-dev --org ouroboric-dev
+check "--org plus --config is refused" refused --org piabrota --config "$T/min.json"
+check "--config plus --org is refused" refused --config "$T/min.json" --org piabrota
+check "--org twice is refused" refused --org piabrota --org piabrota
 check "--config twice is refused" refused --config "$T/min.json" --config "$T/min.json"
 cfg m "{$base, \"licence_dir\": \"nowhere\"}"
 check "a licence_dir that does not exist is refused" refused --config "$T/m.json"
@@ -113,7 +114,7 @@ check "a relative --config gives an absolute RC_FILE" bash -c "
 # owner: the account is an org (the default) or a user.
 owner() { ( . "$HERE/../repo-config.sh"; repo_config_args "$@"; repo_config_load; printf '%s' "$RC_OWNER" ); }
 check "without owner, the account is an org" [ "$(owner --config "$T/min.json")" = org ]
-check "ouroboric-dev is an org" [ "$(owner --org ouroboric-dev)" = org ]
+check "piabrota is an org" [ "$(owner --org piabrota)" = org ]
 cfg u "{$base, \"owner\": \"user\"}"
 check "owner user loads" [ "$(owner --config "$T/u.json")" = user ]
 cfg m "{$base, \"owner\": \"team\"}"
@@ -137,5 +138,5 @@ check "git ignores the operator configs in local/" git -C "$HERE/../.." check-ig
 check "git ignores an operator's licence texts in local/" git -C "$HERE/../.." check-ignore -q scripts/orgs/local/someone/LicenseRef-Proprietary.txt
 check "git keeps local/README.md" bash -c "! git -C '$HERE/../..' check-ignore -q scripts/orgs/local/README.md"
 check "no operator config is committed: every committed config is an org's or an example" \
-  bash -c "[ -z \"\$(git -C '$HERE/../..' ls-files 'scripts/orgs/*.json' 'scripts/orgs/local/*' | grep -vx -e 'scripts/orgs/ouroboric-dev.json' -e 'scripts/orgs/examples/user.json' -e 'scripts/orgs/local/README.md')\" ]"
+  bash -c "[ -z \"\$(git -C '$HERE/../..' ls-files 'scripts/orgs/*.json' 'scripts/orgs/local/*' | grep -vx -e 'scripts/orgs/piabrota.json' -e 'scripts/orgs/examples/user.json' -e 'scripts/orgs/local/README.md')\" ]"
 exit $fail

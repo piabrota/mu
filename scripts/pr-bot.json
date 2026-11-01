@@ -1,8 +1,8 @@
 {
-  "name": "ouroboric-pr-bot",
-  "description": "Pushes branches and opens pull requests for Ouroboric's agents. It never merges.",
-  "url": "https://github.com/ouroboric-dev",
-  "hook_attributes": { "url": "https://github.com/ouroboric-dev", "active": false },
+  "name": "piabrota-pr-bot",
+  "description": "Pushes branches and opens pull requests for piabrota's agents. It never merges.",
+  "url": "https://github.com/piabrota",
+  "hook_attributes": { "url": "https://github.com/piabrota", "active": false },
   "redirect_url": "http://localhost:8719/done",
   "public": false,
   "default_permissions": {
