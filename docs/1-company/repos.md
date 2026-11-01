@@ -11,15 +11,20 @@ style: reference
 [PIABROTA.md](../../PIABROTA.md) indexes every public repo of the [`piabrota`](https://github.com/piabrota)
 organisation. This page says how this repo's tree relates to them.
 
-## Umbrellas
+## The chart and the products
 
 | Repository | Kind | Role |
 | --- | --- | --- |
-| [`mu`](https://github.com/piabrota/mu) | company umbrella | this repo: dogma, charter, standards, journal, brand; the products as submodules under [`products/`](../../products/) |
-| [`yggdrasil`](https://github.com/piabrota/yggdrasil) | product umbrella | our fork of the agentic factory; it mirrors upstream |
-| [`asgard`](https://github.com/piabrota/asgard) | product umbrella | our fork of the kickstart realm; it mirrors upstream |
+| [`mu`](https://github.com/piabrota/mu) | company chart | this repo: dogma, charter, standards, journal, brand |
+| `pirsig`, `alerts`, `ihero`, `gramatico`, `nix-os`, `dojo`, `rax`, `agents` | products | submodules under [`products/`](../../products/) |
 
-## Upstream repos
+## The factory
+
+Our forks of [`yggdrasil`](https://github.com/piabrota/yggdrasil) and
+[`asgard`](https://github.com/piabrota/asgard) mirror upstream. They are not products of piabrota. The
+`ygg-*` scripts use clones of them beside this repo, not submodules.
+
+### Upstream repos
 
 Yggdrasil's leaves were not forked. They live in [`ouroboric-dev`](https://github.com/ouroboric-dev),
 and the `ygg-*` scripts build them from there, so those links stay on upstream.

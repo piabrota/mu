@@ -2,14 +2,14 @@
 # Private repos are never listed, only counted: this repository is public.
 [meta]
 as_of = "2026-11-01"
-private_count = 2
+private_count = 0
 
-[[umbrella]]
+[[chart]]
 name = "mu"
 licence = "CC BY 4.0, AGPL-3.0, MPL-2.0"
-what = "The company umbrella: dogma, charter, standards, journal, brand and the scripts every project inherits."
+what = "The company chart: dogma, charter, standards, journal, brand and the scripts every project inherits."
 
-[[umbrella]]
+[[chart]]
 name = ".github"
 licence = "MPL-2.0"
 what = "The org's profile, with the project table, the fabric figure and the funding links."
@@ -57,25 +57,39 @@ what = "The NixOS configuration of the small VPS that serves piabrota.art. A mer
 role = "Hosts the site, rax, the agents and PGX."
 
 [[project]]
-name = "ihoje"
-lane = "archived"
-licence = "no licence file"
-what = "A Rust event scraper with anime-inspired module names. Archived and no longer maintained."
-role = "None."
+name = "ihero"
+lane = "play"
+licence = "MPL-2.0"
+what = "A FOSS music player and game, in Rust. Coming: the repo holds only its licence."
+role = "None yet."
+
+[[project]]
+name = "dojo"
+lane = "not set"
+licence = "MPL-2.0"
+what = "道場. Empty so far: a licence and a title."
+role = "None yet."
 
 [[fork]]
 name = "yggdrasil"
 upstream = "ouroboric-dev/yggdrasil"
 group = "The factory"
 sync = "even"
-why = "Submodule of this repo: the agentic factory."
+why = "The agentic factory this repo inherited its method from."
 
 [[fork]]
 name = "asgard"
 upstream = "ouroboric-dev/asgard"
 group = "The factory"
 sync = "even"
-why = "Submodule of this repo: the kickstart realm."
+why = "The kickstart realm of that factory."
+
+[[fork]]
+name = "cloudroom"
+upstream = "davidondrej/cloudroom"
+group = "Agents and memory"
+sync = "2 behind"
+why = "A platform to run many agents; this repo vendors its `adr-verbatim` skill."
 
 [[fork]]
 name = "skills"
@@ -90,13 +104,6 @@ upstream = "ronaknnathani/relay"
 group = "Agents and memory"
 sync = "even"
 why = "Skills that orchestrate coding agents on long tasks."
-
-[[fork]]
-name = "rea"
-upstream = "morluto/rea"
-group = "Agents and memory"
-sync = "761 behind"
-why = "Reverse engineering with agents."
 
 [[fork]]
 name = "TencentDB-Agent-Memory"
@@ -155,43 +162,9 @@ sync = "even"
 why = "A compiler-based safety checker for GPU kernels, in Lean 4."
 
 [[fork]]
-name = "thc"
-upstream = "ekmett/thc"
-group = "Runtimes and compilers"
-sync = "even"
-why = "The Turbo Haskell Compiler."
-
-[[fork]]
 name = "core"
 upstream = "home-assistant/core"
 group = "Other"
 sync = "795 behind"
 why = "Home Assistant: local home automation."
 
-[[fork]]
-name = "edit"
-upstream = "fmhy/edit"
-group = "Other"
-sync = "7 behind"
-why = "Changes to FMHY."
-
-[[fork]]
-name = "prj-gd-engine"
-upstream = "mbracali/prj-gd-engine"
-group = "Other"
-sync = "179 behind"
-why = "Re-implementations of guitar music games."
-
-[[fork]]
-name = "naruto-unison"
-upstream = "naruto-unison/naruto-unison"
-group = "Other"
-sync = "even"
-why = "Naruto Unison, a game."
-
-[[fork]]
-name = "OpenVoice"
-upstream = "myshell-ai/OpenVoice"
-group = "Other"
-sync = "even"
-why = "Instant voice cloning."

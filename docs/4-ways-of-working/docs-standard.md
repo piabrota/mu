@@ -13,7 +13,7 @@ routing and docs checks work the same everywhere.
 
 ## 1. Umbrella template
 
-A node is one of three kinds: **company umbrellas** (for example, `mu`, or a company that
+A node is one of three kinds: **company charts or umbrellas** (for example, `mu`, or a company that
 the Asgard realm kickstarted), **product umbrellas** (for example, `yggdrasil`, a client gallery) and
 **leaves**. Company
 umbrellas use `1-company/` (charter, roadmap, legal, readiness) instead of `1-product/`, and hold the

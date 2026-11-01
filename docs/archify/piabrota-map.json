@@ -2,7 +2,7 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "The map: piabrota, its factory and what it makes",
+    "title": "The map: piabrota and its eight products",
     "locale": "en",
     "quality_profile": "showcase",
     "legend": {
@@ -16,138 +16,143 @@
       "label": "Humans steer"
     },
     {
-      "id": "core",
-      "label": "Yggdrasil, the agentic factory"
+      "id": "chart",
+      "label": "The company chart"
     },
     {
-      "id": "realms",
-      "label": "Realms"
+      "id": "think",
+      "label": "Think and write"
     },
     {
-      "id": "out",
-      "label": "What it makes"
+      "id": "host",
+      "label": "Warn and host"
+    },
+    {
+      "id": "play",
+      "label": "Coming"
     }
   ],
   "mainPath": [
-    "founder",
-    "asgard",
-    "odin",
-    "gleipnir"
+    "owner",
+    "mu",
+    "pirsig"
   ],
   "nodes": [
     {
-      "id": "founder",
+      "id": "owner",
       "lane": "steer",
       "col": 1,
       "type": "external",
-      "label": "Founder",
-      "width": 220,
-      "sublabel": "approves direction"
+      "label": "Owners",
+      "width": 180,
+      "sublabel": "write the rules, merge"
     },
     {
-      "id": "jorm",
-      "lane": "core",
-      "col": 0,
-      "type": "backend",
-      "label": "Jormungandr",
-      "width": 220,
-      "sublabel": "build, check, fix loop"
-    },
-    {
-      "id": "odin",
-      "lane": "core",
+      "id": "mu",
+      "lane": "chart",
       "col": 1,
-      "type": "backend",
-      "label": "Odin",
-      "width": 220,
-      "sublabel": "orchestrator, ygg CLI"
-    },
-    {
-      "id": "gleipnir",
-      "lane": "core",
-      "col": 2,
-      "type": "backend",
-      "label": "Gleipnir",
-      "width": 220,
-      "sublabel": "harness: agents, sandbox"
-    },
-    {
-      "id": "voluspa",
-      "lane": "realms",
-      "col": 0,
       "type": "database",
-      "label": "Voluspa",
-      "width": 220,
-      "sublabel": "graph library"
+      "label": "mu",
+      "width": 180,
+      "sublabel": "dogma, standards, brain"
     },
     {
-      "id": "asgard",
-      "lane": "realms",
+      "id": "gramatico",
+      "lane": "think",
+      "col": 0,
+      "type": "backend",
+      "label": "gramatico",
+      "width": 180,
+      "sublabel": "plain pt-BR"
+    },
+    {
+      "id": "pirsig",
+      "lane": "think",
       "col": 1,
       "type": "frontend",
-      "label": "Asgard realm",
-      "width": 220,
-      "sublabel": "kickstart"
+      "label": "pirsig",
+      "width": 180,
+      "sublabel": "a second brain"
     },
     {
-      "id": "realms",
-      "lane": "realms",
+      "id": "alerts",
+      "lane": "host",
+      "col": 0,
+      "type": "backend",
+      "label": "alerts",
+      "width": 180,
+      "sublabel": "official alerts"
+    },
+    {
+      "id": "rax",
+      "lane": "host",
+      "col": 1,
+      "type": "backend",
+      "label": "rax",
+      "width": 180,
+      "sublabel": "agentic runtime"
+    },
+    {
+      "id": "agents",
+      "lane": "host",
       "col": 2,
-      "type": "frontend",
-      "label": "Build realms",
-      "width": 220,
-      "sublabel": "Midgard, Helheim"
+      "type": "backend",
+      "label": "agents",
+      "width": 180,
+      "sublabel": "watch and report"
     },
     {
-      "id": "products",
-      "lane": "out",
+      "id": "nixos",
+      "lane": "host",
+      "col": 3,
+      "type": "database",
+      "label": "nix-os",
+      "width": 180,
+      "sublabel": "the VPS"
+    },
+    {
+      "id": "ihero",
+      "lane": "play",
+      "col": 0,
+      "type": "frontend",
+      "label": "ihero",
+      "width": 180,
+      "sublabel": "music, coming"
+    },
+    {
+      "id": "dojo",
+      "lane": "play",
       "col": 1,
-      "type": "external",
-      "label": "Companies and products",
-      "width": 220,
-      "sublabel": "lessons feed back"
+      "type": "frontend",
+      "label": "dojo",
+      "width": 180,
+      "sublabel": "道場, empty so far"
     }
   ],
   "edges": [
     {
       "id": "e1",
-      "from": "founder",
-      "to": "asgard",
-      "label": "approves"
+      "from": "owner",
+      "to": "mu",
+      "label": "approve"
     },
     {
       "id": "e2",
-      "from": "asgard",
-      "to": "odin",
-      "label": "recipe, later"
+      "from": "mu",
+      "to": "pirsig",
+      "label": "managed by"
     },
     {
       "id": "e3",
-      "from": "realms",
-      "to": "odin",
-      "label": "recipes"
+      "from": "agents",
+      "to": "nixos",
+      "label": "watch"
     },
     {
       "id": "e4",
-      "from": "voluspa",
-      "to": "odin",
-      "label": "graphs"
-    },
-    {
-      "id": "e5",
-      "from": "odin",
-      "to": "jorm"
-    },
-    {
-      "id": "e6",
-      "from": "odin",
-      "to": "gleipnir"
-    },
-    {
-      "id": "e7",
-      "from": "realms",
-      "to": "products",
-      "label": "builds and verifies"
+      "from": "rax",
+      "to": "agents",
+      "label": "runs"
     }
   ]
 }

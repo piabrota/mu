@@ -2,17 +2,19 @@
 # PIABROTA
 
 Every public repo of [piabrota](https://github.com/piabrota), an open software fabric made in Rio de
-Janeiro: {{ umbrella|length + project|length + fork|length }} public repos, as of {{ meta.as_of }}. The rules
-are in [DOGMA.md](DOGMA.md). The org's {{ meta.private_count }} private repos are counted, never listed.
+Janeiro: {{ chart|length + project|length + fork|length }} public repos, as of {{ meta.as_of }}. The rules
+are in [DOGMA.md](DOGMA.md).{% if meta.private_count %} The org's {{ meta.private_count }} private repos are counted, never listed.{% endif %}
 
-## Umbrella
+## Company
 
 | Repo | Licence | What it is |
 | --- | --- | --- |
-{% for r in umbrella -%}
+{% for r in chart -%}
 | [`{{ r.name }}`](https://github.com/piabrota/{{ r.name }}) | {{ r.licence }} | {{ r.what }} |
 {% endfor %}
 ## Projects
+
+The projects are the submodules under [`products/`](products/).
 
 | Repo | Lane | Licence | What it is | Its place in the company |
 | --- | --- | --- | --- | --- |

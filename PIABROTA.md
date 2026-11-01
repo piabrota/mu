@@ -2,17 +2,19 @@
 # PIABROTA
 
 Every public repo of [piabrota](https://github.com/piabrota), an open software fabric made in Rio de
-Janeiro: 28 public repos, as of 2026-11-01. The rules
-are in [DOGMA.md](DOGMA.md). The org's 2 private repos are counted, never listed.
+Janeiro: 24 public repos, as of 2026-11-01. The rules
+are in [DOGMA.md](DOGMA.md).
 
-## Umbrella
+## Company
 
 | Repo | Licence | What it is |
 | --- | --- | --- |
-| [`mu`](https://github.com/piabrota/mu) | CC BY 4.0, AGPL-3.0, MPL-2.0 | The company umbrella: dogma, charter, standards, journal, brand and the scripts every project inherits. |
+| [`mu`](https://github.com/piabrota/mu) | CC BY 4.0, AGPL-3.0, MPL-2.0 | The company chart: dogma, charter, standards, journal, brand and the scripts every project inherits. |
 | [`.github`](https://github.com/piabrota/.github) | MPL-2.0 | The org's profile, with the project table, the fabric figure and the funding links. |
 
 ## Projects
+
+The projects are the submodules under [`products/`](products/).
 
 | Repo | Lane | Licence | What it is | Its place in the company |
 | --- | --- | --- | --- | --- |
@@ -22,7 +24,8 @@ are in [DOGMA.md](DOGMA.md). The org's 2 private repos are counted, never listed
 | [`rax`](https://github.com/piabrota/rax) | warn and host | MPL-2.0, parts Apache-2.0 | Rustic Agentic Runtime: a pure-Rust port of AX, the declarative orchestrator for agentic tasks, with AX's API. | Runs the agents' tasks on the VPS, one pod per run. |
 | [`agents`](https://github.com/piabrota/agents) | warn and host | MPL-2.0 | Small agents that watch nix-os and its VPS: deploy doctor, pull request reviewer, mentions, mirror keeper, flake annotator, feedback, health digest. | Act on GitHub as the App `piabrota-ops`, installed on nix-os only. |
 | [`nix-os`](https://github.com/piabrota/nix-os) | warn and host | MPL-2.0 | The NixOS configuration of the small VPS that serves piabrota.art. A merge to `main` is a deploy. | Hosts the site, rax, the agents and PGX. |
-| [`ihoje`](https://github.com/piabrota/ihoje) | archived | no licence file | A Rust event scraper with anime-inspired module names. Archived and no longer maintained. | None. |
+| [`ihero`](https://github.com/piabrota/ihero) | play | MPL-2.0 | A FOSS music player and game, in Rust. Coming: the repo holds only its licence. | None yet. |
+| [`dojo`](https://github.com/piabrota/dojo) | not set | MPL-2.0 | 道場. Empty so far: a licence and a title. | None yet. |
 
 ## Forks
 
@@ -33,9 +36,9 @@ its upstream's: no fork carries commits of its own.
 
 | Repo | Upstream | Sync | Why it is here |
 | --- | --- | --- | --- |
+| [`cloudroom`](https://github.com/piabrota/cloudroom) | [`davidondrej/cloudroom`](https://github.com/davidondrej/cloudroom) | 2 behind | A platform to run many agents; this repo vendors its `adr-verbatim` skill. |
 | [`skills`](https://github.com/piabrota/skills) | [`davidondrej/skills`](https://github.com/davidondrej/skills) | even | Agent skills. |
 | [`relay`](https://github.com/piabrota/relay) | [`ronaknnathani/relay`](https://github.com/ronaknnathani/relay) | even | Skills that orchestrate coding agents on long tasks. |
-| [`rea`](https://github.com/piabrota/rea) | [`morluto/rea`](https://github.com/morluto/rea) | 761 behind | Reverse engineering with agents. |
 | [`TencentDB-Agent-Memory`](https://github.com/piabrota/TencentDB-Agent-Memory) | [`TencentCloud/TencentDB-Agent-Memory`](https://github.com/TencentCloud/TencentDB-Agent-Memory) | even | A team-level memory hub for agents. |
 | [`axon`](https://github.com/piabrota/axon) | [`danieltamas/axon`](https://github.com/danieltamas/axon) | even | Reads agent harness logs: speed, cost and output per model. |
 | [`bton`](https://github.com/piabrota/bton) | [`danieltamas/bton`](https://github.com/danieltamas/bton) | 11 behind | A team's review flow with coding agents, from the macOS menu bar. |
@@ -52,10 +55,6 @@ its upstream's: no fork carries commits of its own.
 | Repo | Upstream | Sync | Why it is here |
 | --- | --- | --- | --- |
 | [`core`](https://github.com/piabrota/core) | [`home-assistant/core`](https://github.com/home-assistant/core) | 795 behind | Home Assistant: local home automation. |
-| [`edit`](https://github.com/piabrota/edit) | [`fmhy/edit`](https://github.com/fmhy/edit) | 7 behind | Changes to FMHY. |
-| [`prj-gd-engine`](https://github.com/piabrota/prj-gd-engine) | [`mbracali/prj-gd-engine`](https://github.com/mbracali/prj-gd-engine) | 179 behind | Re-implementations of guitar music games. |
-| [`naruto-unison`](https://github.com/piabrota/naruto-unison) | [`naruto-unison/naruto-unison`](https://github.com/naruto-unison/naruto-unison) | even | Naruto Unison, a game. |
-| [`OpenVoice`](https://github.com/piabrota/OpenVoice) | [`myshell-ai/OpenVoice`](https://github.com/myshell-ai/OpenVoice) | even | Instant voice cloning. |
 
 ### Runtimes and compilers
 
@@ -64,11 +63,10 @@ its upstream's: no fork carries commits of its own.
 | [`pgx`](https://github.com/piabrota/pgx) | [`pgrundev/pgx`](https://github.com/pgrundev/pgx) | even | Postgres-compatible engine in Rust; nix-os runs it for rax's store. |
 | [`rust-cuda`](https://github.com/piabrota/rust-cuda) | [`Rust-GPU/rust-cuda`](https://github.com/Rust-GPU/rust-cuda) | even | GPU code in Rust. |
 | [`lean_kernel_verify`](https://github.com/piabrota/lean_kernel_verify) | [`facebookresearch/lean_kernel_verify`](https://github.com/facebookresearch/lean_kernel_verify) | even | A compiler-based safety checker for GPU kernels, in Lean 4. |
-| [`thc`](https://github.com/piabrota/thc) | [`ekmett/thc`](https://github.com/ekmett/thc) | even | The Turbo Haskell Compiler. |
 
 ### The factory
 
 | Repo | Upstream | Sync | Why it is here |
 | --- | --- | --- | --- |
-| [`yggdrasil`](https://github.com/piabrota/yggdrasil) | [`ouroboric-dev/yggdrasil`](https://github.com/ouroboric-dev/yggdrasil) | even | Submodule of this repo: the agentic factory. |
-| [`asgard`](https://github.com/piabrota/asgard) | [`ouroboric-dev/asgard`](https://github.com/ouroboric-dev/asgard) | even | Submodule of this repo: the kickstart realm. |
+| [`yggdrasil`](https://github.com/piabrota/yggdrasil) | [`ouroboric-dev/yggdrasil`](https://github.com/ouroboric-dev/yggdrasil) | even | The agentic factory this repo inherited its method from. |
+| [`asgard`](https://github.com/piabrota/asgard) | [`ouroboric-dev/asgard`](https://github.com/ouroboric-dev/asgard) | even | The kickstart realm of that factory. |
