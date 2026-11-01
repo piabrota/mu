@@ -10,6 +10,14 @@
 
 </div>
 
+mu is a hard fork of [ouroboric-dev/ouroboric](https://github.com/ouroboric-dev/ouroboric), taken at
+[`a2573b3`](https://github.com/ouroboric-dev/ouroboric/commit/a2573b34e28a13b73701e476499db780eec57d36) on 2026-10-27.
+The two repos share history up to that commit. mu does not follow upstream.
+
+> [!WARNING]
+> mu is not an Ouroboric project, and Ouroboric does not endorse it. Ouroboric is a partner of piabrota. Report
+> a problem with mu here, not upstream. [NOTICE.md](NOTICE.md) keeps the credit, the licences and the list of changes.
+
 ## In one minute
 
 - **mu is the company chart of [piabrota](https://github.com/piabrota)**, an open software fabric
