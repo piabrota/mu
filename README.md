@@ -27,15 +27,17 @@ The two repos share history up to that commit. mu does not follow upstream.
   in short pull requests. Judgement is decision-oriented: evidence, a decision model, calibrated
   probabilities, rules that humans define, a verdict.
 - **[PIABROTA.md](PIABROTA.md) indexes every public repo of the org.**
+- **[dojo](https://github.com/piabrota/dojo) is the common layer of every repository.** It is the umbrella:
+  it pins each repo, this one included, and mu gives it the rules.
 - **[pirsig](https://github.com/piabrota/pirsig) will manage this repo:** smart notes, PARA and a
   track record of high-level decisions. [`brain/`](brain/) is its fork state.
 - **mu began as a copy of Ouroboric's company repo.** [NOTICE.md](NOTICE.md) keeps that credit.
 
 ## The map
 
-![piabrota map: owners write the rules and approve direction in mu, the company chart, which pirsig manages; the products are gramatico and pirsig (think and write), alerts, rax, agents and nix-os (warn and host), ihero and dojo](docs/img/piabrota-map.png)
+![piabrota map: owners approve direction in mu, the company chart; mu gives its rules to dojo, the umbrella and the common layer, which pins every repository: gramatico and pirsig (think and write), alerts, rax, agents and nix-os (warn and host), and ihero](docs/img/piabrota-map.png)
 
-**How to read this figure.** Top to bottom, one lane per kind of work. A red border marks the people who steer. The source is [`piabrota-map.json`](docs/archify/piabrota-map.json).
+**How to read this figure.** Top to bottom. The second lane is the common layer, and the lanes below it are kinds of work. A red border marks the people who steer and dojo. The source is [`piabrota-map.json`](docs/archify/piabrota-map.json).
 
 ## Contents
 
