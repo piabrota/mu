@@ -138,7 +138,7 @@ name = "graphify"
 upstream = "Graphify-Labs/graphify"
 group = "Figures and graphs"
 sync = "179 behind"
-why = "Knowledge graphs; `psg graph` exports for it."
+why = "Knowledge graphs; `psg graph` exports for it, and this repo pins it in `forks/graphify`."
 
 [[fork]]
 name = "pgx"

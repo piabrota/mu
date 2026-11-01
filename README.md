@@ -38,6 +38,7 @@
 | [`5-research/`](docs/5-research/README.md) | company-level research |
 | [`6-journal/`](docs/6-journal/README.md) | the journey: challenges, solutions, results |
 | [`7-branding/`](docs/7-branding/README.md) | the piabrota identity and voice, and the naming record |
+| [`forks/`](forks/) | the forks this repo pins: archify, graphify |
 | [`brain/`](brain/) | pirsig's fork state: PARA, smart notes, the track record |
 
 The eight products are submodules under [`products/`](products/): clone with `--recurse-submodules`.

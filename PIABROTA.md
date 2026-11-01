@@ -48,7 +48,7 @@ its upstream's: no fork carries commits of its own.
 | Repo | Upstream | Sync | Why it is here |
 | --- | --- | --- | --- |
 | [`archify`](https://github.com/piabrota/archify) | [`tt-a1i/archify`](https://github.com/tt-a1i/archify) | 14 behind | Draws every plot of the org; this repo pins it in `forks/archify`. |
-| [`graphify`](https://github.com/piabrota/graphify) | [`Graphify-Labs/graphify`](https://github.com/Graphify-Labs/graphify) | 179 behind | Knowledge graphs; `psg graph` exports for it. |
+| [`graphify`](https://github.com/piabrota/graphify) | [`Graphify-Labs/graphify`](https://github.com/Graphify-Labs/graphify) | 179 behind | Knowledge graphs; `psg graph` exports for it, and this repo pins it in `forks/graphify`. |
 
 ### Other
 

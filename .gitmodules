@@ -25,3 +25,6 @@
 [submodule "products/agents"]
 	path = products/agents
 	url = https://github.com/piabrota/agents.git
+[submodule "forks/graphify"]
+	path = forks/graphify
+	url = https://github.com/piabrota/graphify.git
