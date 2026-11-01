@@ -16,6 +16,7 @@ organisation. This page says how this repo's tree relates to them.
 | Repository | Kind | Role |
 | --- | --- | --- |
 | [`mu`](https://github.com/piabrota/mu) | company chart | this repo: dogma, charter, standards, journal, brand |
+| [`dojo`](https://github.com/piabrota/dojo) | umbrella | the common layer: it pins every repository as a submodule, and inherits the rules from mu |
 | `pirsig`, `alerts`, `ihero`, `gramatico`, `nix-os`, `dojo`, `rax`, `agents` | products | submodules under [`products/`](../../products/) |
 
 ## The factory

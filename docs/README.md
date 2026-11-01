@@ -5,9 +5,9 @@ chart. Read the [dogma](../DOGMA.md) first, then the [charter](1-company/charter
 
 ## The map
 
-![piabrota map: owners write the rules and approve direction in mu, the company chart, which pirsig manages; the products are gramatico and pirsig (think and write), alerts, rax, agents and nix-os (warn and host), ihero and dojo](img/piabrota-map.png)
+![piabrota map: owners approve direction in mu, the company chart; mu gives its rules to dojo, the umbrella and the common layer, which pins every repository: gramatico and pirsig (think and write), alerts, rax, agents and nix-os (warn and host), and ihero](img/piabrota-map.png)
 
-**How to read this figure.** Top to bottom, one lane per kind of work. A red border marks the people who steer. The source is [`piabrota-map.json`](./archify/piabrota-map.json).
+**How to read this figure.** Top to bottom. The second lane is the common layer, and the lanes below it are kinds of work. A red border marks the people who steer and dojo. The source is [`piabrota-map.json`](./archify/piabrota-map.json).
 
 ## Contents
 
