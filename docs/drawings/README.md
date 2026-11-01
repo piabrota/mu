@@ -19,3 +19,6 @@ committed files are not its output. The pen is `drawings/pen.nix`, copied from n
 The piabrota logo, the mark [piabrota.art](https://piabrota.art) shows: an open green eye on red. The site
 defines it in code (`eye` in piabrota/nix-os, `site/src/piabrota_site/parts.gleam`), so `drawings/eye.nix`
 holds the same shapes and colours. Change it in nix-os first.
+
+`eye.png` is the same logo at 1024 × 1024, with transparent corners, for places that take no SVG, such as
+an avatar upload. `scripts/drawing.sh` writes it from `eye.svg`.
