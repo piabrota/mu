@@ -9,11 +9,11 @@ repos:
         entry: gitleaks git --redact --verbose
         stages: [manual]
   - repo: https://github.com/fsfe/reuse-tool
-    rev: v5.0.2
+    rev: v6.3.0
     hooks:
       - id: reuse
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.23.3
+    rev: v0.24.0
     hooks:
       - id: markdownlint-cli2
   - repo: https://github.com/shellcheck-py/shellcheck-py
