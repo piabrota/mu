@@ -2,7 +2,7 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "The map: piabrota and its eight products",
+    "title": "The map: dojo is the common layer of piabrota",
     "locale": "en",
     "quality_profile": "showcase",
     "legend": {
@@ -16,8 +16,8 @@
       "label": "Humans steer"
     },
     {
-      "id": "chart",
-      "label": "The company chart"
+      "id": "common",
+      "label": "The common layer: dojo pins every repo below"
     },
     {
       "id": "think",
@@ -35,13 +35,14 @@
   "mainPath": [
     "owner",
     "mu",
+    "dojo",
     "pirsig"
   ],
   "nodes": [
     {
       "id": "owner",
       "lane": "steer",
-      "col": 1,
+      "col": 0,
       "type": "external",
       "label": "Owners",
       "width": 180,
@@ -49,12 +50,21 @@
     },
     {
       "id": "mu",
-      "lane": "chart",
-      "col": 1,
+      "lane": "common",
+      "col": 0,
       "type": "database",
       "label": "mu",
       "width": 180,
-      "sublabel": "dogma, standards, brain"
+      "sublabel": "the company chart"
+    },
+    {
+      "id": "dojo",
+      "lane": "common",
+      "col": 1,
+      "type": "external",
+      "label": "dojo",
+      "width": 180,
+      "sublabel": "the umbrella, pins them all"
     },
     {
       "id": "gramatico",
@@ -118,15 +128,6 @@
       "label": "ihero",
       "width": 180,
       "sublabel": "music, coming"
-    },
-    {
-      "id": "dojo",
-      "lane": "play",
-      "col": 1,
-      "type": "frontend",
-      "label": "dojo",
-      "width": 180,
-      "sublabel": "道場, empty so far"
     }
   ],
   "edges": [
@@ -139,20 +140,26 @@
     {
       "id": "e2",
       "from": "mu",
-      "to": "pirsig",
-      "label": "managed by"
+      "to": "dojo",
+      "label": "the rules"
     },
     {
       "id": "e3",
-      "from": "agents",
-      "to": "nixos",
-      "label": "watch"
+      "from": "dojo",
+      "to": "pirsig",
+      "label": "pins every repo"
     },
     {
       "id": "e4",
       "from": "rax",
       "to": "agents",
       "label": "runs"
+    },
+    {
+      "id": "e5",
+      "from": "agents",
+      "to": "nixos",
+      "label": "watch"
     }
   ]
 }

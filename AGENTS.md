@@ -2,6 +2,7 @@
 
 piabrota is the company, an open software fabric made in Rio de Janeiro. This repo, `mu`, is its company
 chart: it holds the company docs, the standards every product inherits, the eight products as submodules under `products/`, and the forks it pins under `forks/`: archify and graphify.
+[dojo](https://github.com/piabrota/dojo) is the umbrella, the common layer of every repository.
 Read [`DOGMA.md`](DOGMA.md) first: it wins over this file. [`PIABROTA.md`](PIABROTA.md) indexes the org's
 repos. Start with `docs/README.md`.
 
